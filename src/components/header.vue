@@ -5,10 +5,14 @@
 				<h1 class="logo"><img src="../assets/img/logo.png" /></h1>
 				<div class="nav-person">
 					<div class="head-pic"></div>
-					<div class="nav-login">
+					<div class="nav-login" v-if="!isLogin">
 							<button class="btn btn-success" href="#" role="button"><router-link to="/register">注册</router-link></button>					
 							<button class="btn btn-default" href="#" role="button"><router-link to="/login">登录</router-link></button>
-							<button class="btn btn-warning" href="#" role="button" @click="signout">退出</button>
+							
+					</div>
+					<div class="nav-person" v-if="isLogin">
+						<div class="head-pic">name</div>
+						<button class="btn btn-warning" href="#" role="button" @click="signout">退出</button>
 					</div>
 				</div>
 				<ul class="nav-menu">
@@ -37,11 +41,14 @@
 		name: 'header',
 		data() {
 			return {
- 			
+ 				isLogin:false
 			}
 		},
 		components: {
 		
+		},
+		mounted: function() {
+//			this.isLogin=store.state.isLogin
 		},
 		methods:{
 			signout:function(){

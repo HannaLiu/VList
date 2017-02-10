@@ -8,7 +8,7 @@
 	    <router-view></router-view>   
 		</div>-->
 		<vheader></vheader>
-		<vfooter></vfooter>
+		<!--<vfooter></vfooter>-->
 	</div>
 </template>
 
@@ -25,8 +25,7 @@
 			vfooter
 		},
 		mounted: function() {
-			console.log(storelast.fetch().id)
-			console.log("当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
+			console.log("首页：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		}
 	}
 </script>

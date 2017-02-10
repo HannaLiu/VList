@@ -8,7 +8,7 @@ header{width:100%; height:90px; position: fixed;top:0; z-index:999; border-botto
 .header{position: relative;height: 90px;}
 .logo{float: left;}
 .logo img{height: 30px;}
-.head-pic{float: left;margin:27px 20px;width:35px; height:35px; display:inline-block; border-radius:50%; background:url(../images/men2.jpg);display: none;}
+.head-pic{}
 nav ul{float:right;font-size: 0;}
 .nav-menu{height: 90px;border-right: 1px solid #e5e5e5;}
 .nav-menu li{display: inline-block;line-height: 90px;margin: 0 10px;}
