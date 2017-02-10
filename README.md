@@ -1,6 +1,6 @@
-# vueTodolist
+# VueTodolist
 
-> to do list use Vue.js
+> Application of Todolist with Vue.js.
 
 ## Build Setup
 

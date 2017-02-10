@@ -36,7 +36,7 @@
 <script>
 	import storelist from '../storelist'
 	import findel from '../findElem'
-	
+	import store from '../../modules/store-global'
 	export default {
 		name: 'todolist',
 		data() {
@@ -44,6 +44,7 @@
 				items: storelist.fetch(),
 				newItem: "",
 				name:"",
+				id:"",
 				showFinishedList: false,
 				isActive: false
 			};
@@ -56,7 +57,9 @@
 				deep: true
 			}
 		},
-		props:['id'],
+		mounted:function(){
+			console.log(store.state.cid)
+		},		
 		methods: {
 			toggleFinished:function(item){
 				item.isfinished=!item.isfinished
@@ -77,7 +80,7 @@
 					return;
 				}
 				this.items.push({
-					id:this.id,
+					id:"",
 					plan: this.newItem,
 					isfinished: false
 				})

@@ -1,10 +1,10 @@
 <template>
 	<div id="login">
 		<div>
-			<input type="text" name="" id="" value="" placeholder="请输入您的名字" v-model="name" v-on:focus="clearMsg" @keyup.13="login"/>
-			<input type="password" name="" id="" value="" placeholder="请输入您的密码" v-model="pwd" v-on:focus="clearMsg" @keyup.13="login"/>
+			<input type="text" name="" id="" value="" placeholder="请输入您的名字" v-model="name" v-on:focus="clearMsg" @keyup.13="login" />
+			<input type="password" name="" id="" value="" placeholder="请输入您的密码" v-model="pwd" v-on:focus="clearMsg" @keyup.13="login" />
 			<span class="message">{{msg}}</span>
-			<input type="button" name="" id="" value="登录" @click="login"/>			
+			<input type="button" name="" id="" value="登录" @click="login" />
 		</div>
 	</div>
 </template>
@@ -13,44 +13,45 @@
 	import storeuser from '../storeuser'
 	import md5 from 'md5'
 	import findel from '../findElem'
-
+	import store from '../../modules/store-global'
 	export default {
 		name: 'todolist',
 		data() {
 			return {
-				name:"",
-				pwd:"",
-				msg:"",
-				cid:"",
-				users: storeuser.fetch()				
+				name: "",
+				pwd: "",
+				msg: "",
+				cid: "",
+				users: storeuser.fetch()
 			};
 		},
-		methods:{			
-			login:function(){
+		methods: {
+			login: function() {
 				if(this.name.trim() == "") {
-					this.msg="请输入用户名"
+					this.msg = "请输入用户名"
 					return;
 				}
 				if(this.pwd.trim() == "") {
-					this.msg="请输入密码"
+					this.msg = "请输入密码"
 					return;
 				}
-				var exist=findel.findElem(this.users,"name",this.name);
-				var existpwd=findel.findElem(this.users,"pwd",md5(this.pwd));
-				if(exist == -1 || existpwd == -1){
-					this.msg="用户名或密码错误"
+				var exist = findel.findElem(this.users, "name", this.name);
+				var existpwd = findel.findElem(this.users, "pwd", md5(this.pwd));
+				if(exist == -1 || existpwd == -1) {
+					this.msg = "用户名或密码错误"
 					return;
 				}
-				if(exist!=-1 && existpwd!=-1){
+				if(exist != -1 && existpwd != -1) {
 					alert("登录成功")
 				}
-				this.cid=this.users[exist]["id"];
-				console.log(this.cid)				
-				this.name="";
-				this.pwd="";	
+				store.state.cid=this.users[exist]["id"];				
+				store.state.isLogin=true;
+				console.log("当前是否已登录:"+ (store.state.isLogin?" 是 ":" 否 ") +" ,当前id为 "+store.state.cid)
+				this.name = "";
+				this.pwd = "";
 			},
-			clearMsg:function(){
-				this.msg=""
+			clearMsg: function() {
+				this.msg = ""
 			}
 		}
 	}
