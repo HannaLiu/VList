@@ -1,5 +1,5 @@
 <template>
-	<div id="todolist">		
+	<div id="todolist">
 		<div id="tasks">
 			<p v-bind:id="id"></p>
 			<div id="list-toolbar">
@@ -19,11 +19,12 @@
 				</div>
 				<div class="task-list inbox">
 					<a @click="toggleFinishedList" class="showBtn">显示已完成任务</a>
-					<transition name="fade" v-if="showFinishedList">										
+					<transition name="fade" v-if="showFinishedList">
 						<ul>
-							<li><p v-if="showDefault()">暂无完成任务</p></li>
-							<li v-for="item in items" :class="{finished:item.isfinished}" v-if="item.isfinished"><label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/></label>
-								{{item.plan}}								
+							<li>
+								<p v-if="showDefault()">暂无完成任务</p>
+							</li>
+							<li v-for="item in items" :class="{finished:item.isfinished}" v-if="item.isfinished"><label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/></label> {{item.plan}}
 							</li>
 						</ul>
 					</transition>
@@ -41,37 +42,44 @@
 		name: 'todolist',
 		data() {
 			return {
-				items: storelist.fetch(),
+				allitems: storelist.fetch(),
 				newItem: "",
-				name:"",
-				id:"",
+				name: "",
+				id: "",
 				showFinishedList: false,
-				isActive: false
+				isActive: false,
+				items: []
 			};
 		},
 		watch: {
-			items: {
-				handler: function(items) {
-					storelist.save(items)
+			allitems: {
+				handler: function(allitems) {
+					storelist.save(allitems)
 				},
 				deep: true
 			}
 		},
-		mounted:function(){
-			console.log(store.state.cid)
-		},		
+		mounted: function() {
+			this.allitems.forEach(
+				(item) => {
+					if(item.id == store.state.cid) {
+						this.items.push(item);
+					}
+				}
+			);
+		},
 		methods: {
-			toggleFinished:function(item){
-				item.isfinished=!item.isfinished
+			toggleFinished: function(item) {
+				item.isfinished = !item.isfinished
 			},
-			toggleFinishedList:function(){
-				this.showFinishedList=!this.showFinishedList
+			toggleFinishedList: function() {
+				this.showFinishedList = !this.showFinishedList
 			},
-			showDefault:function(){
-				var len=findel.findElem(this.items,"isfinished",true);
-				if(len<0){
+			showDefault: function() {
+				var len = findel.findElem(this.items, "isfinished", true);
+				if(len < 0) {
 					return true;
-				}else{
+				} else {
 					return false;
 				}
 			},
@@ -79,12 +87,12 @@
 				if(this.newItem.trim() == "") {
 					return;
 				}
-				if(!store.state.cid){
-					alert("请先登录")	//此处为显示登录框
+				if(!store.state.cid) {
+					alert("请先登录") //此处为显示登录框
 					return
 				}
-				this.items.push({
-					id:store.state.cid,
+				this.allitems.push({
+					id: store.state.cid,
 					plan: this.newItem,
 					isfinished: false
 				})

@@ -51,6 +51,12 @@
 					alert("请先登录")	//此处为显示登录框
 					return
 				}
+				
+				
+//				var exist = findel.findElem(this.lists, "plan", this.movies[index].title);
+//				
+//				
+				
 				this.lists.push({
 					id:store.state.cid,
 					plan: this.movies[index].title,
