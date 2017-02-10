@@ -25,6 +25,14 @@
 				users: storeuser.fetch()
 			};
 		},
+		watch: {
+			userlast: {
+				handler: function(userlast) {
+					storelast.save(userlast)
+				},
+				deep: true				
+			}
+		},
 		methods: {
 			login: function() {
 				if(this.name.trim() == "") {
@@ -47,6 +55,7 @@
 				store.state.cid=this.users[exist]["id"];				
 				store.state.isLogin=true;
 				console.log("当前是否已登录:"+ (store.state.isLogin?" 是 ":" 否 ") +" ,当前id为 "+store.state.cid)
+				
 				this.name = "";
 				this.pwd = "";
 			},

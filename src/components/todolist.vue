@@ -79,8 +79,12 @@
 				if(this.newItem.trim() == "") {
 					return;
 				}
+				if(!store.state.cid){
+					alert("请先登录")	//此处为显示登录框
+					return
+				}
 				this.items.push({
-					id:"",
+					id:store.state.cid,
 					plan: this.newItem,
 					isfinished: false
 				})
