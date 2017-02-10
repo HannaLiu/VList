@@ -1,6 +1,6 @@
 # VueTodolist
 
-> Application of Todolist with Vue.js.
+> Todolist Application width Vue.js.
 
 ## Build Setup
 
