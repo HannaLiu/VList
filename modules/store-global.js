@@ -1,18 +1,24 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import storelast from '../src/storeuser-last'
+import storeCurr from '../src/storeuser-last'
+
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
-		cid: storelast.fetch().id,
-		isLogin: false		
+		cid:"",
+		isLogin:false
 	},
+	strict:true,
 	mutations: {
+		login(state) {
+			state.cid = storeCurr.fetch()[0].cid,
+			state.isLogin = storeCurr.fetch()[0].islogin
+		},
 		singout(state) {
-			state.isLogin=false,
-			state.cid= ""
+			state.cid = "",
+			state.isLogin = false
 		}
 	}
 })

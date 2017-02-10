@@ -14,7 +14,9 @@
 </template>
 
 <script>
+	import store from '../../modules/store-global'
 	import storebook from '../storebook'
+	import storeCurr from '../storeuser-last'
 	export default {
 		name: 'book',
 		data() {
@@ -23,6 +25,9 @@
 				msg:"",
 				books:storebook.fetch()
 			};
+		},
+		mounted:function(){
+			console.log("书籍页：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		},
 		methods:{
 			searchBook:function(){

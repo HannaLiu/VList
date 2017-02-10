@@ -15,16 +15,21 @@
 <script>
 	var vheader = require('components/header');
 	var vfooter = require('components/footer');
-	
+
 	import store from '../modules/store-global'
-	import storelast from '../src/storeuser-last'
+	import storeCurr from './storeuser-last'
 	export default {
 		name: 'app',
 		components: {
 			vheader,
 			vfooter
 		},
-		mounted: function() {
+		data() {
+			return {
+				user: storeCurr.fetch()
+			};
+		},
+		mounted: function() {			
 			console.log("首页：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		}
 	}

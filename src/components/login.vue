@@ -14,6 +14,8 @@
 	import md5 from 'md5'
 	import findel from '../findElem'
 	import store from '../../modules/store-global'
+
+	import storeCurr from '../storeuser-last'
 	export default {
 		name: 'todolist',
 		data() {
@@ -22,17 +24,11 @@
 				pwd: "",
 				msg: "",
 				cid: "",
-				users: storeuser.fetch()
+				users: storeuser.fetch(),
+				user: storeCurr.fetch()
 			};
 		},
-		watch: {
-			userlast: {
-				handler: function(userlast) {
-					storelast.save(userlast)
-				},
-				deep: true				
-			}
-		},
+		
 		methods: {
 			login: function() {
 				if(this.name.trim() == "") {
@@ -52,10 +48,14 @@
 				if(exist != -1 && existpwd != -1) {
 					alert("登录成功")
 				}
-				store.state.cid=this.users[exist]["id"];				
-				store.state.isLogin=true;
-				console.log("当前是否已登录:"+ (store.state.isLogin?" 是 ":" 否 ") +" ,当前id为 "+store.state.cid)
-				
+				this.user = []
+				this.user.push({
+					cid: this.users[exist]["id"],
+					islogin: true
+				})
+				storeCurr.save(this.user)
+				store.commit('login');
+				console.log("当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 				this.name = "";
 				this.pwd = "";
 			},
