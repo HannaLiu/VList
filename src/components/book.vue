@@ -14,10 +14,10 @@
 </template>
 
 <script>
-	import store from '../../modules/store-global'
-	import storelist from '../storelist'
-	import storebook from '../storebook'
-	import storeCurr from '../storeuser-last'
+	import store from '../store/store-global'
+	import storelist from '../data/storelist'
+	import storebook from '../data/storebook'
+	import storeCurr from '../data/storeuser-last'
 	export default {
 		name: 'book',
 		data() {

@@ -12,10 +12,10 @@
 </template>
 
 <script>
-	import storemovie from '../storemovie'
-	import storelist from '../storelist'
-	import store from '../../modules/store-global'
-	import findel from '../findElem'
+	import storemovie from '../data/storemovie'
+	import storelist from '../data/storelist'
+	import store from '../store/store-global'
+	import findel from '../modules/findElem'
 	export default {
 		name: 'movie',
 		data() {

@@ -11,9 +11,9 @@
 </template>
 
 <script>
-	import storeuser from '../storeuser'
+	import storeuser from '../data/storeuser'
 	import md5 from 'md5'
-	import findel from '../findElem'
+	import findel from '../modules/findElem'
 	
 	export default {
 		name: 'register',

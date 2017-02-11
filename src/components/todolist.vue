@@ -35,9 +35,9 @@
 </template>
 
 <script>
-	import storelist from '../storelist'
-	import findel from '../findElem'
-	import store from '../../modules/store-global'
+	import storelist from '../data/storelist'
+	import findel from '../modules/findElem'
+	import store from '../store/store-global'
 	export default {
 		name: 'todolist',
 		data() {

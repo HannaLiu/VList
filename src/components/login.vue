@@ -10,12 +10,12 @@
 </template>
 
 <script>
-	import storeuser from '../storeuser'
+	import storeuser from '../data/storeuser'
 	import md5 from 'md5'
-	import findel from '../findElem'
-	import store from '../../modules/store-global'
-
-	import storeCurr from '../storeuser-last'
+	import findel from '../modules/findElem'
+	import store from '../store/store-global'
+	import storeCurr from '../data/storeuser-last'
+	
 	export default {
 		name: 'todolist',
 		data() {

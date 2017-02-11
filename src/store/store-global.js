@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import storeCurr from '../src/storeuser-last'
+import storeCurr from '../data/storeuser-last'
 
 Vue.use(Vuex);
 

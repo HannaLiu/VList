@@ -16,8 +16,8 @@
 	var vheader = require('components/header');
 	var vfooter = require('components/footer');
 
-	import store from '../modules/store-global'
-	import storeCurr from './storeuser-last'
+	import store from './store/store-global'
+	import storeCurr from './data/storeuser-last'
 	export default {
 		name: 'app',
 		components: {
