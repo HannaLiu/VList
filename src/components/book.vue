@@ -4,10 +4,10 @@
 		<span>{{msg}}</span>
 		<input type="button" class="btn btn-default" value="查找图书" @click="searchBook"/>
 		<ul>
-			<li v-for="book in books">
+			<li v-for="(book,index) in books">
 				<img v-bind:src="book.images.small" />
 				<p class="title">{{book.title}}</p>
-				<input type="button" value="加入清单"/>
+				<input type="button" value="加入清单" @click="addtolist(index)"/>
 			</li>
 		</ul>
 	</div>
@@ -15,6 +15,7 @@
 
 <script>
 	import store from '../../modules/store-global'
+	import storelist from '../storelist'
 	import storebook from '../storebook'
 	import storeCurr from '../storeuser-last'
 	export default {
@@ -23,11 +24,20 @@
 			return {
 				bookname:"",
 				msg:"",
-				books:storebook.fetch()
+				books:storebook.fetch(),
+				lists:storelist.fetch(),
 			};
 		},
 		mounted:function(){
 			console.log("书籍页：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
+		},
+		watch:{
+			lists: {
+				handler: function(lists) {
+					storelist.save(lists)
+				},
+				deep: true
+			}
 		},
 		methods:{
 			searchBook:function(){
@@ -47,6 +57,17 @@
 					storebook.save(this.books)
 				},function(response){
 					console.log(response)
+				})
+			},
+			addtolist:function(index){
+				if(!store.state.cid) {
+					alert("请先登录") //此处为显示登录框
+					return
+				}
+				this.lists.push({
+					id: store.state.cid,
+					plan: this.books[index].title,
+					isfinished: false
 				})
 			},
 			clearMsg:function(){
