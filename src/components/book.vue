@@ -17,7 +17,8 @@
 	import store from '../store/store-global'
 	import storelist from '../data/storelist'
 	import storebook from '../data/storebook'
-	import storeCurr from '../data/storeuser-last'
+	import storeCurr from '../data/storeusercurr'
+	import findel from '../modules/findElem'
 	export default {
 		name: 'book',
 		data() {
@@ -63,11 +64,25 @@
 					alert("请先登录") //此处为显示登录框
 					return
 				}
+				var currlist=[]
+				this.lists.forEach(
+					(list) => {
+						if(list.id == store.state.cid) {
+							currlist.push(list)	
+						}
+					}
+				);				
+				var existlist = findel.findElem(currlist, "plan", this.books[index].title);	
+				if(existlist!=-1){
+					alert("已结在列表中")
+					return
+				}
 				this.lists.push({
 					id: store.state.cid,
 					plan: this.books[index].title,
 					isfinished: false
 				})
+				alert("添加成功")
 			},
 			clearMsg:function(){
 				this.msg=""

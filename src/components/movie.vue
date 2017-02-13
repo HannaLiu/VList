@@ -37,17 +37,13 @@
 		mounted: function() {
 			console.log("电影页：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 
-			this.$http.jsonp('https://api.douban.com/v2/movie/top250?count=10', {}, {
-				headers: {},
-				emulateJSON: true
+			this.$http.jsonp('https://api.douban.com/v2/movie/top250?count=10', {}, {			
 			}).then(function(response) {
 				this.movies = response.data.subjects
 				storemovie.save(this.movies)
 			}, function(response) {
 				console.log(response)
-			})
-			
-			
+			})		
 		},
 		methods: {
 			addtolist: function(index) {
@@ -55,7 +51,6 @@
 					alert("请先登录") //此处为显示登录框
 					return
 				}
-
 				var currlist=[]
 				this.lists.forEach(
 					(list) => {
@@ -63,15 +58,12 @@
 							currlist.push(list)	
 						}
 					}
-				);
-				
-				var existlist = findel.findElem(currlist, "plan", this.movies[index].title);
-	
+				);				
+				var existlist = findel.findElem(currlist, "plan", this.movies[index].title);	
 				if(existlist!=-1){
 					alert("已结在列表中")
 					return
-				}				
-				
+				}
 				this.lists.push({
 					id: store.state.cid,
 					plan: this.movies[index].title,

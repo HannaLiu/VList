@@ -14,7 +14,7 @@
 	import md5 from 'md5'
 	import findel from '../modules/findElem'
 	import store from '../store/store-global'
-	import storeCurr from '../data/storeuser-last'
+	import storeCurr from '../data/storeusercurr'
 	
 	export default {
 		name: 'todolist',

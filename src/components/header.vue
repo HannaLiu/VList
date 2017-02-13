@@ -38,7 +38,7 @@
 
 <script>
 	import store from '../store/store-global'
-	import storeCurr from '../data/storeuser-last'
+	import storeCurr from '../data/storeusercurr'
 	export default {
 		name: 'header',
 		data() {
