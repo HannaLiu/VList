@@ -1,30 +1,34 @@
 <template>
-	<div id="todolist">
+	<div id="todolist" class="container">
 		<div id="tasks">
 			<p v-bind:id="id"></p>
 			<div id="list-toolbar">
-				<h1 class="title">待完成</h1>
+				<h2>待完成</h2>
 			</div>
 			<div id="tasks-scroll">
 				<div class="addTask">
-					<span><i class="fa fa-plus"></i></span><input type="text" v-model="newItem" @keyup.13="addItem" />
+					<div class="input-group">
+						<span class="input-group-addon">+</span>
+						<input type="text" class="form-control" v-model="newItem" @keyup.13="addItem">
+					</div>
 				</div>
 				<div class="task-list">
 					<ul>
 						<li v-for="item in items" :class="{finished:item.isfinished}" v-if="!item.isfinished" @dbclick="">
-							<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/></label>
-							<span>{{item.plan}}</span>
+							<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/><span>{{item.plan}}</span></label>
 						</li>
 					</ul>
 				</div>
 				<div class="task-list inbox">
-					<a @click="toggleFinishedList" class="showBtn">显示已完成任务</a>
+					<button class="btn btn-success" @click="toggleFinishedList">显示已完成任务</button>
 					<transition name="fade" v-if="showFinishedList">
 						<ul>
 							<li>
-								<p v-if="showDefault()">暂无完成任务</p>
+								<h5 v-if="showDefault()">暂无完成任务</h5>
+								<h5 v-else>以下为完成任务</h5>
 							</li>
-							<li v-for="item in items" :class="{finished:item.isfinished}" v-if="item.isfinished"><label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/></label> {{item.plan}}
+							<li v-for="item in items" :class="{finished:item.isfinished}" v-if="item.isfinished">
+								<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/>{{item.plan}}</label>
 							</li>
 						</ul>
 					</transition>
@@ -68,7 +72,6 @@
 				}
 			);
 			console.log("清单：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
-
 		},
 		methods: {
 			toggleFinished: function(item) {
@@ -90,7 +93,7 @@
 					return;
 				}
 				if(!store.state.cid) {
-					alert("请先登录") //此处为显示登录框
+					alert("请先登录")
 					return
 				}
 				this.allitems.push({
@@ -98,6 +101,12 @@
 					plan: this.newItem,
 					isfinished: false
 				})
+				this.items.push({
+					id: store.state.cid,
+					plan: this.newItem,
+					isfinished: false
+				})
+				
 				this.newItem = ""
 			}
 		}
@@ -124,5 +133,18 @@
 	
 	.active {
 		background: green;
+	}
+	
+	ul {
+		margin: 15px;
+		font-size: 16px;
+	}
+	
+	li {
+		height: 30px;
+	}
+	
+	input[type=checkbox] {
+		margin-right: 10px;
 	}
 </style>

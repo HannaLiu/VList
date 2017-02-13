@@ -8,8 +8,7 @@
 					<div class="nav-login" v-if="!isLogin">
 						<button class="btn btn-success" href="#" role="button"><router-link to="/register">注册</router-link></button>
 						<button class="btn btn-default" href="#" role="button"><router-link to="/login">登录</router-link></button>
-						<button class="btn btn-warning" href="#" role="button" @click="signout">退出</button>
-
+						<button class="btn btn-warning" href="#" role="button" @click="signout">退出</button>	
 					</div>
 					<div class="nav-person" v-if="isLogin">
 						<div class="head-pic">name</div>
@@ -17,9 +16,9 @@
 					</div>
 				</div>
 				<ul class="nav-menu">
-					<li>
+					<!--<li>
 						<router-link to="/">首页</router-link>
-					</li>
+					</li>-->
 					<li>
 						<router-link to="/movie">电影</router-link>
 					</li>
@@ -39,6 +38,7 @@
 <script>
 	import store from '../store/store-global'
 	import storeCurr from '../data/storeusercurr'
+	import login from './login'
 	export default {
 		name: 'header',
 		data() {
@@ -48,15 +48,15 @@
 			}
 		},
 		components: {
-
+			login 
 		},
 		mounted: function() {
-			
+
 		},
 		methods: {
-			signout: function() {				
-				if (!confirm("确定退出吗")){
-				 	return
+			signout: function() {
+				if(!confirm("确定退出吗")) {
+					return
 				}
 				location.reload()
 				store.commit('singout');

@@ -1,10 +1,16 @@
 <template>
 	<div id="login">
-		<div>
-			<input type="text" name="" id="" value="" placeholder="请输入您的名字" v-model="name" v-on:focus="clearMsg" @keyup.13="login" />
-			<input type="password" name="" id="" value="" placeholder="请输入您的密码" v-model="pwd" v-on:focus="clearMsg" @keyup.13="login" />
-			<span class="message">{{msg}}</span>
-			<input type="button" name="" id="" value="登录" @click="login" />
+		<div class="model">
+			<div class="form-group">
+				<label >请输入您的用户名</label>
+				<input type="text" class="form-control" placeholder="请输入您的用户名" v-model="name" v-on:focus="clearMsg" @keyup.13="login">
+			</div>
+			<div class="form-group">
+				<label>请输入您的密码</label>
+				<input type="password" class="form-control"  placeholder="请输入您的密码" v-model="pwd" v-on:focus="clearMsg" @keyup.13="login">
+			</div>
+			<p class="message">{{msg}}</p>
+			<div class="text-center"><button type="submit" class="btn btn-default" @click="login">登录</button></div>
 		</div>
 	</div>
 </template>
@@ -15,7 +21,7 @@
 	import findel from '../modules/findElem'
 	import store from '../store/store-global'
 	import storeCurr from '../data/storeusercurr'
-	
+
 	export default {
 		name: 'todolist',
 		data() {
@@ -28,7 +34,7 @@
 				user: storeCurr.fetch()
 			};
 		},
-		
+
 		methods: {
 			login: function() {
 				if(this.name.trim() == "") {
@@ -44,9 +50,9 @@
 				if(exist !== existpwd) {
 					this.msg = "用户名或密码错误"
 					return;
-				}				
-				if(exist == existpwd ) {
-					alert("登录成功")
+				}
+				if(exist == existpwd) {
+					alert("登录成功")					
 				}
 				this.user = []
 				this.user.push({
@@ -67,5 +73,5 @@
 </script>
 
 <style scoped>
-
+	
 </style>

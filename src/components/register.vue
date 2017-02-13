@@ -1,11 +1,20 @@
 <template>
 	<div id="register">
-		<div>
-			<input type="text" id="name" placeholder="请输入您的用户名" v-model="newName" v-on:focus="clearMsg" @keyup.13="addUser"/>
-			<input type="password" id="pwd" placeholder="请输入您的密码" v-model="newPwd" v-on:focus="clearMsg" @keyup.13="addUser"/>
-			<input type="password" id="checkpwd" placeholder="请确认您的密码" ref="checkPwd" v-on:focus="clearMsg" @keyup.13="addUser"/>
-			<span class="message" ref="msg">{{msg}}</span>
-			<input type="button" name="" id="" value="注册" @click="addUser"/>
+		<div class="model">
+			<div class="form-group">
+				<label >请输入您的用户名</label>
+				<input type="text" class="form-control" placeholder="请输入您的用户名" v-model="newName" v-on:focus="clearMsg" @keyup.13="addUser">
+			</div>
+			<div class="form-group">
+				<label>请输入您的密码</label>
+				<input type="password" class="form-control"  placeholder="请输入您的密码" v-model="newPwd" v-on:focus="clearMsg" @keyup.13="addUser">
+			</div>
+			<div class="form-group">
+				<label>请确认您的密码</label>
+				<input type="password" class="form-control"  placeholder="请输入您的密码" ref="checkPwd" v-on:focus="clearMsg" @keyup.13="addUser">
+			</div>
+			<p class="message" ref="msg">{{msg}}</p>
+			<div class="text-center"><button type="submit" class="btn btn-default"  @click="addUser">登录</button></div>
 		</div>
 	</div>
 </template>

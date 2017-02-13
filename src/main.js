@@ -7,17 +7,21 @@ import VueResource from 'vue-resource'
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
-//1.定义（路由）组件
+
 import login from './components/login.vue'
 import register from './components/register.vue'
 import todolist from './components/todolist.vue'
 import movie from './components/movie.vue'
 import book from './components/book.vue'
-//2.创建router实例，定义路由
+
 const router = new VueRouter({
 		mode: 'history',
 		base: __dirname,
-		routes: [{
+		routes: [
+		{
+			path: '/',
+			component: login
+		}, {
 			path: '/login',
 			component: login
 		}, {
@@ -34,7 +38,6 @@ const router = new VueRouter({
 			component: book
 		}]
 	})
-	//4.创建和挂载根实例
 const app = new Vue({
 	router: router,
 	render: h => h(App)
