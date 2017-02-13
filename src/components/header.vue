@@ -32,13 +32,14 @@
 			</nav>
 		</header>
 		<router-view></router-view>
+		<vfooter></vfooter>
 	</div>
 </template>
 
 <script>
 	import store from '../store/store-global'
 	import storeCurr from '../data/storeusercurr'
-	import login from './login'
+	import vfooter from './footer'
 	export default {
 		name: 'header',
 		data() {
@@ -48,7 +49,7 @@
 			}
 		},
 		components: {
-			login 
+			vfooter 
 		},
 		mounted: function() {
 
