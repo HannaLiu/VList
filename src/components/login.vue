@@ -2,12 +2,12 @@
 	<div id="login">
 		<div class="model">
 			<div class="form-group">
-				<label >请输入您的用户名</label>
+				<label>请输入您的用户名</label>
 				<input type="text" class="form-control" placeholder="请输入您的用户名" v-model="name" v-on:focus="clearMsg" @keyup.13="login">
 			</div>
 			<div class="form-group">
 				<label>请输入您的密码</label>
-				<input type="password" class="form-control"  placeholder="请输入您的密码" v-model="pwd" v-on:focus="clearMsg" @keyup.13="login">
+				<input type="password" class="form-control" placeholder="请输入您的密码" v-model="pwd" v-on:focus="clearMsg" @keyup.13="login">
 			</div>
 			<p class="message">{{msg}}</p>
 			<div class="text-center"><button type="submit" class="btn btn-default" @click="login">登录</button></div>
@@ -47,12 +47,12 @@
 				}
 				var exist = findel.findElem(this.users, "name", this.name);
 				var existpwd = findel.findElem(this.users, "pwd", md5(this.pwd));
-				if(exist !== existpwd) {
+				if(exist == -1 || existpwd == -1) {
 					this.msg = "用户名或密码错误"
 					return;
 				}
-				if(exist == existpwd) {
-					alert("登录成功")					
+				if(exist != -1 && existpwd != -1 && exist == existpwd) {
+					alert("登录成功")
 				}
 				//关闭登录框
 				this.user = []
@@ -74,5 +74,5 @@
 </script>
 
 <style scoped>
-	
+
 </style>
