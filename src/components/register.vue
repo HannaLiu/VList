@@ -11,10 +11,10 @@
 			</div>
 			<div class="form-group">
 				<label>请确认您的密码</label>
-				<input type="password" class="form-control"  placeholder="请输入您的密码" ref="checkPwd" v-on:focus="clearMsg" @keyup.13="addUser">
+				<input type="password" class="form-control"  placeholder="请确认您的密码" ref="checkPwd" v-on:focus="clearMsg" @keyup.13="addUser">
 			</div>
 			<p class="message" ref="msg">{{msg}}</p>
-			<div class="text-center"><button type="submit" class="btn btn-default"  @click="addUser">登录</button></div>
+			<div class="text-center"><button type="submit" class="btn btn-default"  @click="addUser">注册</button></div>
 		</div>
 	</div>
 </template>
@@ -73,6 +73,7 @@
 					pwd: md5(this.newPwd),
 				})
 				alert("注册成功")
+				//显示登录框
 				this.newName = ""
 				this.newPwd = ""
 				this.$refs.checkPwd.value=""				

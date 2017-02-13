@@ -11,7 +11,7 @@
 			<li v-for="(book,index) in books" class="col-xs-3 col-md-2 list_li">
 				<div class="img_main"><img v-bind:src="book.images.small" class="img-thumbnail"/></div>
 				<p class="title">{{book.title}}</p>
-				<input type="button" class="btn btn-default" value="加入清单" @click="addtolist(index)" />
+				<input type="button" class="btn btn-default" value="我要看" @click="addtolist(index)" />
 			</li>
 		</ul>
 	</div>

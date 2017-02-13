@@ -4,8 +4,8 @@
 			<li v-for="(movie,index) in movies" class="col-xs-3 col-md-2 list_li">
 				<div class="img_main"><img v-bind:src="movie.images.small" class="img-thumbnail"/></div>
 				<p class="title">{{movie.title}}</p>
-				<input type="button" value="加入清单" class="btn btn-default"  @click="addtolist(index)" v-if="!movie.existlist" />
-				<input type="button" value="移出清单" class="btn btn-default"  @click="deletelist(index)" v-else="movie.existlist" />
+				<input type="button" value="我要看" class="btn btn-default"  @click="addtolist(index)" v-if="!movie.existlist" />
+				<input type="button" value="移出" class="btn btn-default"  @click="deletelist(index)" v-else="movie.existlist" />
 			</li>
 		</ul>
 	</div>

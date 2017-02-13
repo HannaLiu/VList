@@ -1,17 +1,17 @@
 <template>
 	<div id="todolist" class="container">
-		<div id="tasks">
-			<p v-bind:id="id"></p>
-			<div id="list-toolbar">
+		<div>
+			<div>
 				<h2>待完成</h2>
 			</div>
-			<div id="tasks-scroll">
-				<div class="addTask">
+			<div>
+				<div>
 					<div class="input-group">
 						<span class="input-group-addon">+</span>
-						<input type="text" class="form-control" v-model="newItem" @keyup.13="addItem">
+						<input type="text" class="form-control" v-model="newItem" @keyup.13="addItem" @focus="checkLogin" @blur="clearMsg" placeholder="请添加计划">
 					</div>
 				</div>
+				<p class="message">{{msg}}</p>
 				<div class="task-list">
 					<ul>
 						<li v-for="item in items" :class="{finished:item.isfinished}" v-if="!item.isfinished" @dbclick="">
@@ -19,7 +19,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="task-list inbox">
+				<div class="task-list">
 					<button class="btn btn-success" @click="toggleFinishedList">显示已完成任务</button>
 					<transition name="fade" v-if="showFinishedList">
 						<ul>
@@ -50,6 +50,7 @@
 				newItem: "",
 				name: "",
 				id: "",
+				msg: "",
 				showFinishedList: false,
 				isActive: false,
 				items: []
@@ -78,6 +79,10 @@
 				item.isfinished = !item.isfinished
 			},
 			toggleFinishedList: function() {
+				if(!store.state.cid) {
+					alert("请先登录")
+					return;
+				}
 				this.showFinishedList = !this.showFinishedList
 			},
 			showDefault: function() {
@@ -88,13 +93,21 @@
 					return false;
 				}
 			},
+			checkLogin: function() {
+				if(!store.state.cid) {
+					this.msg = "请先登录"
+				}
+			},
+			clearMsg: function() {
+				this.msg = ""
+			},
 			addItem: function() {
 				if(this.newItem.trim() == "") {
 					return;
 				}
 				if(!store.state.cid) {
 					alert("请先登录")
-					return
+					return;
 				}
 				this.allitems.push({
 					id: store.state.cid,
@@ -106,7 +119,7 @@
 					plan: this.newItem,
 					isfinished: false
 				})
-				
+
 				this.newItem = ""
 			}
 		}
@@ -129,6 +142,11 @@
 	
 	.task-list li {
 		word-break: break-all;
+	}
+	
+	.message {
+		padding-top: 10px;
+		padding-left: 15px;
 	}
 	
 	.active {

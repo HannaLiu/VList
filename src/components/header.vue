@@ -58,7 +58,8 @@
 				if(!confirm("确定退出吗")) {
 					return
 				}
-				location.reload()
+				//返回主页
+				window.location.href="index"
 				store.commit('singout');
 				this.user = []
 				this.user.push({

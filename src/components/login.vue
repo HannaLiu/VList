@@ -54,6 +54,7 @@
 				if(exist == existpwd) {
 					alert("登录成功")					
 				}
+				//关闭登录框
 				this.user = []
 				this.user.push({
 					cid: this.users[exist]["id"],
