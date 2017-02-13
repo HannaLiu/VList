@@ -41,11 +41,12 @@
 				}
 				var exist = findel.findElem(this.users, "name", this.name);
 				var existpwd = findel.findElem(this.users, "pwd", md5(this.pwd));
-				if(exist == -1 || existpwd == -1) {
+				console.log(exist,existpwd)
+				if(exist !== existpwd) {
 					this.msg = "用户名或密码错误"
 					return;
-				}
-				if(exist != -1 && existpwd != -1) {
+				}				
+				if(exist == existpwd ) {
 					alert("登录成功")
 				}
 				this.user = []

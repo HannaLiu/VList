@@ -4,8 +4,8 @@
 			<li v-for="(movie,index) in movies">
 				<img v-bind:src="movie.images.small" />
 				<p class="title">{{movie.title}}</p>
-				<input type="button" value="加入清单" @click="addtolist(index)" v-if="!movie.isInList" />
-				<input type="button" value="移出清单" @click="deletelist(index)" v-if="movie.isInList" />
+				<input type="button" value="加入清单" @click="addtolist(index)" />
+				<input type="button" value="移出清单" @click="deletelist(index)" />
 			</li>
 		</ul>
 	</div>
@@ -21,7 +21,6 @@
 		data() {
 			return {
 				title: "",
-				isInList: false,
 				movies: storemovie.fetch(),
 				lists: storelist.fetch(),
 				items: []
@@ -54,15 +53,32 @@
 					alert("请先登录") //此处为显示登录框
 					return
 				}
+
+				var currlist=[]
+				this.lists.forEach(
+					(list) => {
+						if(list.id == store.state.cid) {
+							currlist.push(list)
+						}
+					}
+				);
+				
+				var existlist = findel.findElem(currlist, "plan", this.movies[index].title);
+	
+				if(existlist!=-1){
+					alert("已结在列表中")
+					return
+				}				
+				
 				this.lists.push({
 					id: store.state.cid,
 					plan: this.movies[index].title,
 					isfinished: false
 				})
+				alert("添加成功")
 			},
 			deletelist: function() {
-				storelist.delete(store.state.cid)
-				this.isInList = false
+
 			}
 		}
 	}
