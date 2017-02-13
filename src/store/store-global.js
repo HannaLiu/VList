@@ -7,8 +7,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
-		cid:storeCurr.fetch()[0].cid,
-		isLogin:storeCurr.fetch()[0].islogin
+		cid:storeCurr.fetch()==""?"":storeCurr.fetch()[0].cid,
+		isLogin:storeCurr.fetch()==""?"":storeCurr.fetch()[0].islogin
 	},
 	strict:true,
 	mutations: {

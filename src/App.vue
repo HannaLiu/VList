@@ -1,21 +1,14 @@
 <template>
 	<div id="app">
-		<!--<div class="header">
-			<router-link to="/login">登录</router-link>
-	    <router-link to="/register">注册</router-link>
-	    <router-link to="/todolist">豆瓣清单</router-link>
-	    <router-link to="/movie">电影</router-link>
-	    <router-view></router-view>   
-		</div>-->
-		<vheader></vheader>
-		<!--<vfooter></vfooter>-->
+		<vheader></vheader>		
+		<vfooter></vfooter>
 	</div>
 </template>
 
 <script>
-	var vheader = require('components/header');
-	var vfooter = require('components/footer');
-
+	import vheader from './components/header'
+	import vfooter from './components/footer'
+	
 	import store from './store/store-global'
 	import storeCurr from './data/storeuser-last'
 	export default {
@@ -23,7 +16,7 @@
 		components: {
 			vheader,
 			vfooter
-		},
+		},		
 		data() {
 			return {
 				user: storeCurr.fetch()

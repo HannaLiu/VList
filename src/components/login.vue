@@ -41,7 +41,6 @@
 				}
 				var exist = findel.findElem(this.users, "name", this.name);
 				var existpwd = findel.findElem(this.users, "pwd", md5(this.pwd));
-				console.log(exist,existpwd)
 				if(exist !== existpwd) {
 					this.msg = "用户名或密码错误"
 					return;

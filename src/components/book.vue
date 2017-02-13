@@ -41,7 +41,6 @@
 		},
 		methods:{
 			searchBook:function(){
-				console.log(this.bookname)
 				if(this.bookname.trim() == "") {
 					this.msg="请输入书名关键字"
 					return;

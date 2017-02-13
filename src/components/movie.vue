@@ -4,8 +4,8 @@
 			<li v-for="(movie,index) in movies">
 				<img v-bind:src="movie.images.small" />
 				<p class="title">{{movie.title}}</p>
-				<input type="button" value="加入清单" @click="addtolist(index)" />
-				<input type="button" value="移出清单" @click="deletelist(index)" />
+				<input type="button" value="加入清单" @click="addtolist(index)" v-if="!movie.existlist" />
+				<input type="button" value="移出清单" @click="deletelist(index)" v-else="movie.existlist" />
 			</li>
 		</ul>
 	</div>
@@ -46,6 +46,8 @@
 			}, function(response) {
 				console.log(response)
 			})
+			
+			
 		},
 		methods: {
 			addtolist: function(index) {
@@ -58,7 +60,7 @@
 				this.lists.forEach(
 					(list) => {
 						if(list.id == store.state.cid) {
-							currlist.push(list)
+							currlist.push(list)	
 						}
 					}
 				);
