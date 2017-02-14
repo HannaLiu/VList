@@ -1,21 +1,18 @@
 <template>
 	<div id="app">
-		<vheader></vheader>	
-		<!--<vfooter></vfooter>-->
+		<vmain></vmain>	
 	</div>
 </template>
 
 <script>
-	import vheader from './components/header'
-	import vfooter from './components/footer'
+	import vmain from './components/main'
 	
 	import store from './store/store-global'
 	import storeCurr from './data/storeusercurr'
 	export default {
 		name: 'app',
 		components: {
-			vheader,
-			vfooter
+			vmain
 		},		
 		data() {
 			return {

@@ -47,13 +47,18 @@
 				}
 				var exist = findel.findElem(this.users, "name", this.name);
 				var existpwd = findel.findElem(this.users, "pwd", md5(this.pwd));
-				if(exist == -1 || existpwd == -1) {
-					this.msg = "用户名或密码错误"
+				if(exist == -1) {
+					this.msg = "该用户名未注册"
 					return;
 				}
-				if(exist != -1 && existpwd != -1 && exist == existpwd) {
+				if(existpwd == -1) {
+					this.msg = "密码错误"
+					return;
+				}				
+				if(exist != -1 && this.users[exist]["pwd"]==md5(this.pwd)) {
 					alert("登录成功")
 				}
+				
 				//关闭登录框
 				this.user = []
 				this.user.push({
