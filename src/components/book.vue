@@ -2,9 +2,13 @@
 	<div id="book" class="container">
 		<div class="container-fluid form-inline m_t_m">
 			<div class="text-right">				
-				<span class="message">{{msg}}</span>
-				<input type="text" class="form-control search_input" placeholder="请输入书名关键字" v-model="bookname" @focus="clearMsg" @keyup.13="searchBook" />
-				<button type="button" class="btn btn-default" value="查找图书" @click="searchBook" ><i class="fa fa-search"></i></button>	
+				<span class="message">{{msg}}</span>	
+				<div class="input-group">
+					<input type="text" class="form-control search_input" placeholder="请输入书名关键字" v-model="bookname" @focus="clearMsg" @keyup.13="searchBook">
+					<span class="input-group-btn">
+        			<button class="btn btn-default" type="button" @click="searchBook"><i class="fa fa-search"></i></button>
+      				</span>
+				</div>
 			</div>
 		</div>
 		<ul>

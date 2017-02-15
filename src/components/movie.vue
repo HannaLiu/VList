@@ -3,8 +3,12 @@
 		<div class="container-fluid form-inline m_t_m">
 			<div class="text-right">
 				<span class="message">{{msg}}</span>
-				<input type="text" class="form-control search_input" placeholder="请输入电影关键字" v-model="moviename" @focus="clearMsg" @keyup.13="searchMovie" />
-				<button type="button" class="btn btn-default" value="查找电影" @click="searchMovie"><i class="fa fa-search"></i></button>
+				<div class="input-group">
+					<input type="text" class="form-control search_input" placeholder="请输入电影关键字" v-model="moviename" @focus="clearMsg" @keyup.13="searchMovie" >
+					<span class="input-group-btn">
+        			<button class="btn btn-default" type="button" @click="searchMovie"><i class="fa fa-search"></i></button>
+      				</span>
+				</div>
 			</div>
 		</div>
 		<ul class="movieList">
@@ -29,7 +33,7 @@
 			return {
 				title: "",
 				msg: "",
-				moviename:"",
+				moviename: "",
 				movies: storemovie.fetch(),
 				lists: storelist.fetch(),
 				items: []
@@ -106,6 +110,11 @@
 </script>
 
 <style scoped>
-	.search_input{width: 300px;}
-	.message{margin-right: 10px;}
+	.search_input {
+		width: 300px;
+	}
+	
+	.message {
+		margin-right: 10px;
+	}
 </style>

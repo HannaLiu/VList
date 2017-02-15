@@ -5,10 +5,12 @@
 				<h2>待完成</h2>
 			</div>
 			<div>
-				<div>
+				<div>					
 					<div class="input-group">
-						<span class="input-group-addon">+</span>
-						<input type="text" class="form-control" v-model="newItem" @keyup.13="addItem" @focus="checkLogin" @blur="clearMsg" placeholder="请添加计划">
+						<span class="input-group-btn">
+        					<button class="btn btn-default" type="button" @click="addItem">+</button>
+      					</span>
+						<input type="text" class="form-control" placeholder="请添加计划" v-model="newItem" @keyup.13="addItem" @focus="checkLogin" @blur="clearMsg">
 					</div>
 				</div>
 				<p class="message">{{msg}}</p>
