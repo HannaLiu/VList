@@ -110,7 +110,7 @@
 </script>
 
 <style scoped>
-	.search_input {
+	.form-control.search_input {
 		width: 300px;
 	}
 	

@@ -99,6 +99,6 @@
 </script>
 
 <style scoped>
-	.search_input{width: 300px;}
+	.form-control.search_input{width: 300px;}
 	.message{margin-right: 10px;}
 </style>

@@ -20,14 +20,14 @@
 						<router-link to="/">首页</router-link>
 					</li>-->
 					<li>
+						<router-link to="/">TODO</router-link>
+					</li>
+					<li>
 						<router-link to="/movie">电影</router-link>
 					</li>
 					<li>
 						<router-link to="/book">书籍</router-link>
-					</li>
-					<li>
-						<router-link to="/todolist">TODO</router-link>
-					</li>
+					</li>					
 				</ul>
 			</nav>
 		</header>
@@ -60,7 +60,7 @@
 					return
 				}
 				//返回主页
-				window.location.href="index"
+				window.location.href="./"
 				store.commit('singout');
 				this.user = []
 				this.user.push({
