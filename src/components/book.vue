@@ -1,19 +1,15 @@
 <template>
 	<div id="book" class="container">
-		<div class="container-fluid form-inline m_t_m">
-			<div class="text-right">				
-				<span class="message">{{msg}}</span>	
-				<div class="input-group">
-					<input type="text" class="form-control search_input" placeholder="请输入书名关键字" v-model="bookname" @focus="clearMsg" @keyup.13="searchBook">
-					<span class="input-group-btn">
-        			<button class="btn btn-default" type="button" @click="searchBook"><i class="fa fa-search"></i></button>
-      				</span>
-				</div>
-			</div>
+		<div class="input-group m_t_m">
+			<input type="text" class="form-control search_input" placeholder="请输入书名关键字" v-model="bookname" @focus="clearMsg" @keyup.13="searchBook">
+			<span class="input-group-btn">
+    			<button class="btn btn-default" type="button" @click="searchBook"><i class="fa fa-search"></i></button>
+			</span>
 		</div>
+		<span class="message">{{msg}}</span>
 		<ul>
 			<li v-for="(book,index) in books" class="col-xs-3 col-md-2 list_li">
-				<div class="img_main"><img v-bind:src="book.images.small" class="img-thumbnail"/></div>
+				<div class="img_main"><img v-bind:src="book.images.small" class="img-thumbnail" /></div>
 				<p class="title">{{book.title}}</p>
 				<input type="button" class="btn btn-default" value="我要看" @click="addtolist(index)" />
 			</li>
@@ -99,6 +95,5 @@
 </script>
 
 <style scoped>
-	.form-control.search_input{width: 300px;}
-	.message{margin-right: 10px;}
+
 </style>
