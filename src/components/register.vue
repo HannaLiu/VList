@@ -74,6 +74,7 @@
 				})
 				alert("注册成功")
 				//显示登录框
+				window.location.href="./login"
 				this.newName = ""
 				this.newPwd = ""
 				this.$refs.checkPwd.value=""				

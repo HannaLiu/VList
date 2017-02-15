@@ -57,6 +57,7 @@
 				}				
 				if(exist != -1 && this.users[exist]["pwd"]==md5(this.pwd)) {
 					alert("登录成功")
+					window.location.href="./"
 				}
 				
 				//关闭登录框

@@ -147,7 +147,7 @@
 	}
 	
 	.message {
-		padding-top: 10px;
+		padding-top: 0px;
 		padding-left: 15px;
 	}
 	
