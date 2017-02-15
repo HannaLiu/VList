@@ -68,7 +68,7 @@
 				);
 				var existlist = findel.findElem(currlist, "plan", this.movies[index].title);
 				if(existlist != -1) {
-					alert("已结在列表中")
+					alert("已经在列表中")
 					return
 				}
 				this.lists.push({
@@ -83,7 +83,7 @@
 			},
 			searchMovie: function() {
 				if(this.moviename.trim() == "") {
-					this.msg = "请输入书名关键字"
+					this.msg = "请输入电影关键字"
 					return;
 				}
 				this.$http.jsonp('https://api.douban.com/v2/movie/search', {

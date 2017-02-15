@@ -77,7 +77,7 @@
 				);
 				var existlist = findel.findElem(currlist, "plan", this.books[index].title);
 				if(existlist != -1) {
-					alert("已结在列表中")
+					alert("已经在列表中")
 					return
 				}
 				this.lists.push({

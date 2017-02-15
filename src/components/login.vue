@@ -64,6 +64,7 @@
 				this.user = []
 				this.user.push({
 					cid: this.users[exist]["id"],
+					cname: this.users[exist]["name"],
 					islogin: true
 				})
 				storeCurr.save(this.user)

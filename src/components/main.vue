@@ -3,15 +3,13 @@
 		<header>
 			<nav class="container header">
 				<h1 class="logo"><img src="../assets/img/logo.png" /></h1>
-				<div class="nav-person">
-					<div class="head-pic"></div>
+				<div class="nav-person">					
 					<div class="nav-login" v-if="!isLogin">
 						<button class="btn btn-success" href="#" role="button"><router-link to="/register">注册</router-link></button>
 						<button class="btn btn-default" href="#" role="button"><router-link to="/login">登录</router-link></button>
-						<button class="btn btn-warning" href="#" role="button" @click="signout">退出</button>	
 					</div>
-					<div class="nav-person" v-if="isLogin">
-						<div class="head-pic">name</div>
+					<div class="nav-login" v-else>
+						<div class="user-name">{{cname}}</div>
 						<button class="btn btn-warning" href="#" role="button" @click="signout">退出</button>
 					</div>
 				</div>
@@ -20,7 +18,7 @@
 						<router-link to="/">首页</router-link>
 					</li>-->
 					<li>
-						<router-link to="/">TODO</router-link>
+						<router-link to="/todolist">TODO</router-link>
 					</li>
 					<li>
 						<router-link to="/movie">电影</router-link>
@@ -38,6 +36,7 @@
 
 <script>
 	import store from '../store/store-global'
+	import storeuser from '../data/storeuser'
 	import storeCurr from '../data/storeusercurr'
 	import vfooter from './footer'
 	export default {
@@ -45,14 +44,19 @@
 		data() {
 			return {
 				isLogin: false,
+				cname:"",
+				users: storeuser.fetch(),
 				user: storeCurr.fetch()
 			}
 		},
 		components: {
-			vfooter 
+			vfooter
 		},
 		mounted: function() {
-
+			if(store.state.isLogin){
+				this.cname=storeCurr.fetch()[0]["cname"],
+				this.isLogin=true				
+			}			
 		},
 		methods: {
 			signout: function() {

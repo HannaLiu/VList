@@ -5,10 +5,11 @@
 </template>
 
 <script>
-	import vmain from './components/main'
+	import vmain from './components/main'	
 	
-	import store from './store/store-global'
-	import storeCurr from './data/storeusercurr'
+//	import store from './store/store-global'
+//	import storeCurr from './data/storeusercurr'
+	
 	export default {
 		name: 'app',
 		components: {
@@ -16,11 +17,11 @@
 		},		
 		data() {
 			return {
-				user: storeCurr.fetch()
+//				user: storeCurr.fetch()
 			};
 		},
 		mounted: function() {			
-			console.log("首页：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
+//			console.log("首页：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		}
 	}
 </script>
