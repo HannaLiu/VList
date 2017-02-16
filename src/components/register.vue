@@ -1,4 +1,4 @@
-<template>
+﻿<template>
 	<div id="register">
 		<div class="model">
 			<div class="form-group">
@@ -74,7 +74,7 @@
 				})
 				alert("注册成功")
 				//显示登录框
-				window.location.href="./login"
+				window.location.href="./"
 				this.newName = ""
 				this.newPwd = ""
 				this.$refs.checkPwd.value=""				

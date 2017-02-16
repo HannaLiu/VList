@@ -1,11 +1,14 @@
 <template>
 	<div id="app">
-		<vmain></vmain>	
+		<vheader></vheader>	
+		<router-view></router-view>
+		<vfooter></vfooter>
 	</div>
 </template>
 
 <script>
-	import vmain from './components/main'	
+	import vheader from './components/header'	
+	import vfooter from './components/footer'	
 	
 //	import store from './store/store-global'
 //	import storeCurr from './data/storeusercurr'
@@ -13,7 +16,7 @@
 	export default {
 		name: 'app',
 		components: {
-			vmain
+			vheader,vfooter
 		},		
 		data() {
 			return {

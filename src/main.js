@@ -15,31 +15,34 @@ import movie from './components/movie.vue'
 import book from './components/book.vue'
 
 const router = new VueRouter({
-		mode: 'history',
-		base: __dirname,
-		routes: [
-		{
-			path: '/',
-			component: todolist
-		}, {
-			path: '/login',
-			component: login
-		}, {
-			path: '/register',
-			component: register
-		}, {
-			path: '/todolist',
-			component: todolist
-		}, {
-			path: '/movie',
-			component: movie
-		}, {
-			path: '/book',
-			component: book
-		}]
-	})
+	mode: 'history',
+	base: __dirname,
+	routes: [
+	{
+		path: '/',
+		component: login
+	},
+	{
+		path: '/index',
+		component: todolist
+	},{
+		path: '/login',
+		component: login
+	}, {
+		path: '/register',
+		component: register
+	}, {
+		path: '/todolist',
+		component: todolist
+	}, {
+		path: '/movie',
+		component: movie
+	}, {
+		path: '/book',
+		component: book
+	}]
+})
 const app = new Vue({
 	router: router,
 	render: h => h(App)
 }).$mount('#app')
-
