@@ -74,6 +74,7 @@
 				this.lists.push({
 					id: store.state.cid,
 					plan: this.movies[index].title,
+					subtype: "movie",
 					isfinished: false
 				})
 				alert("添加成功")
@@ -94,6 +95,7 @@
 				}).then(function(response) {
 					this.movies = response.data.subjects
 					storemovie.save(this.movies)
+					console.log(response)
 				}, function(response) {
 					console.log(response)
 				})

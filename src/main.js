@@ -20,7 +20,7 @@ const router = new VueRouter({
 	routes: [
 	{
 		path: '/',
-		component: login
+		component: todolist
 	},
 	{
 		path: '/index',
