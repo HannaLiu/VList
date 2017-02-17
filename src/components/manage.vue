@@ -1,6 +1,6 @@
 ﻿<template>
-	<div id="profile">
-		<h4><center>当前为个人资料页，暂未完成</center></h4>
+	<div id="management">
+		<h4><center>当前为管理清单分类页，暂未完成</center></h4>
 	</div>
 </template>
 
@@ -10,7 +10,7 @@
 	import findel from '../modules/findElem'
 	
 	export default {
-		name: 'profile',
+		name: 'management',
 		data() {
 			return {
 				

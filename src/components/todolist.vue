@@ -5,6 +5,7 @@
 				<div class="btn-group m_t_m" role="group">
 					<button type="button" class="btn btn-default" @click="showAllLists" v-bind:class="{'btn-success':isActive}">全部</button>
 					<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" v-bind:class="{'btn-success':isIndex==index?true:false}" @click="showCurrList(index)">{{typeList}}</button>
+					<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>
 				</div>
 			</div>
 			<div>
@@ -94,6 +95,18 @@
 			console.log("清单：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		},
 		methods: {
+			manageList:function(){
+				if(!store.state.cid) {
+					alert("请先登录")
+					return;
+				}
+				this.$router.push({
+					path: '/manage',
+					redirect: to => {
+						manage
+					}
+				})
+			},			
 			//获取当前登录用户的清单列表
 			getCurrItems: function() {
 				this.items = []
@@ -224,7 +237,6 @@
 		padding-top: 0px;
 		padding-left: 15px;
 	}
-	
 	.active {
 		background: green;
 	}

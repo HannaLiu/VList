@@ -21,6 +21,17 @@
 				</div>
 			</div>
 		</div>
+		<!--<ul class="pagination" v-if="!hasList">
+			<li v-show="current != 1" @click="current-- && goto(current)">
+				<a href="#">上一页</a>
+			</li>
+			<li v-for="index in pages" @click="goto(index)" :class="{'active':current == index}" :key="index">
+				<a href="#">{{index}}</a>
+			</li>
+			<li v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)">
+				<a href="#">下一页</a>
+			</li>
+		</ul>-->
 	</div>
 </template>
 
@@ -38,7 +49,11 @@
 				moviename: "",
 				movies: storemovie.fetch(),
 				lists: storelist.fetch(),
-				items: []
+				items: [],
+				current: 1,
+				showItem: 5,
+				allpage: 13,
+				hasList:false
 			};
 		},
 		watch: {
@@ -49,6 +64,28 @@
 				deep: true
 			}
 		},
+		computed: {
+//			pages: function() {
+//				var pag = [];
+//				if(this.current < this.showItem) { //如果当前的激活的项 小于要显示的条数
+//					//总页数和要显示的条数那个大就显示多少条
+//					var i = Math.min(this.showItem, this.allpage);
+//					while(i) {
+//						pag.unshift(i--);
+//					}
+//				} else { //当前页数大于显示页数了
+//					var middle = this.current - Math.floor(this.showItem / 2), //从哪里开始
+//						i = this.showItem;
+//					if(middle > (this.allpage - this.showItem)) {
+//						middle = (this.allpage - this.showItem) + 1
+//					}
+//					while(i--) {
+//						pag.push(middle++);
+//					}
+//				}
+//				return pag
+//			}
+		},
 		mounted: function() {
 			console.log("电影页：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 			//			this.$http.jsonp('https://api.douban.com/v2/movie/top250?count=10').then(function(response) {
@@ -57,14 +94,23 @@
 			//			}, function(response) {
 			//				console.log(response)
 			//			})
+			
+			if(!this.movies){
+				this.hasList=false
+			}
 		},
-		methods: {
+		methods: {			
+//			goto: function(index) {
+//				if(index == this.current) return;
+//				this.current = index;
+//				//这里可以发送ajax请求
+//			},
 			addtolist: function(index) {
 				if(!store.state.cid) {
 					alert("请先登录") //此处为显示登录框
 					return
 				}
-				var currlist = []	//当前用户的清单列表
+				var currlist = [] //当前用户的清单列表
 				this.lists.forEach(
 					(list) => {
 						if(list.id == store.state.cid) {
@@ -75,9 +121,9 @@
 				//判断所选是否已经在清单中
 				var existlist = findel.findElem(currlist, "plan", this.movies[index].title);
 				if(existlist != -1) {
-					alert("已经在列表中")					
+					alert("已经在列表中")
 					return
-				}		
+				}
 				//将当前选中内容添加到清单列表
 				this.lists.push({
 					id: store.state.cid,
@@ -90,23 +136,25 @@
 			deletelist: function() {
 				//从清单中删除该条
 			},
+			getData:function(){
+				this.$http.jsonp('https://api.douban.com/v2/movie/search', {
+					params: {
+						q: this.moviename,
+						count: 12
+					}
+				}).then(function(response) {
+					this.movies = response.data.subjects
+					storemovie.save(this.movies)
+				}, function(response) {
+					console.log(response)
+				})
+			},
 			searchMovie: function() {
 				if(this.moviename.trim() == "") {
 					this.msg = "请输入电影关键字"
 					return;
 				}
-				this.$http.jsonp('https://api.douban.com/v2/movie/search', {
-					params: {
-						q: this.moviename,
-						count: 10
-					}
-				}).then(function(response) {
-					this.movies = response.data.subjects
-					storemovie.save(this.movies)
-					console.log(response)
-				}, function(response) {
-					console.log(response)
-				})
+				this.getData()
 			},
 			clearMsg: function() {
 				this.msg = ""

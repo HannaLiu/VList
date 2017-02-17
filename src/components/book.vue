@@ -51,15 +51,11 @@
 			}
 		},
 		methods: {
-			searchBook: function() {
-				if(this.bookname.trim() == "") {
-					this.msg = "请输入书名关键字"
-					return;
-				}
+			getData:function(){
 				this.$http.jsonp('https://api.douban.com/v2/book/search', {
 					params: {
 						q: this.bookname,
-						count: 10
+						count: 12
 					}
 				}).then(function(response) {
 					this.books = response.data.books
@@ -67,6 +63,13 @@
 				}, function(response) {
 					console.log(response)
 				})
+			},
+			searchBook: function() {
+				if(this.bookname.trim() == "") {
+					this.msg = "请输入书名关键字"
+					return;
+				}
+				this.getData();				
 			},
 			addtolist: function(index) {
 				if(!store.state.cid) {
