@@ -182,14 +182,12 @@
 				this.allitems.push({
 					id: store.state.cid,
 					plan: this.newItem,
-					subtype: this.currIndex,
+					subtype: this.isActive?this.currType:this.currIndex,
 					isfinished: false
 				})
 				this.getCurrItems();
 				this.getTypeLists();
-				
-				
-				
+				this.isActive?this.getAllLists():this.getOtherLists();				
 				this.newItem = ""
 			}
 		}
