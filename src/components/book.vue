@@ -83,7 +83,7 @@
 				this.lists.push({
 					id: store.state.cid,
 					plan: this.books[index].title,
-					subtype:"book",
+					subtype:"书籍",
 					isfinished: false
 				})
 				alert("添加成功")

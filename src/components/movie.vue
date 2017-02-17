@@ -74,7 +74,7 @@
 				this.lists.push({
 					id: store.state.cid,
 					plan: this.movies[index].title,
-					subtype: "movie",
+					subtype: "电影",
 					isfinished: false
 				})
 				alert("添加成功")

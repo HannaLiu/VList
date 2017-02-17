@@ -2,17 +2,14 @@
 	<div id="todolist" class="container">
 		<div>
 			<div>
-				<div class="btn-group m_t_m" role="group"  @click="tabList">
-					<button type="button" class="btn btn-default" @click="showAllList">全部</button>
-					<button type="button" class="btn btn-default" @click="showMovieList">电影</button>
-					<button type="button" class="btn btn-default" @click="showBookList">书籍</button>
-					<button type="button" class="btn btn-default" @click="showCustomList">自定义</button>
-				</div>
-				<h4>待完成</h4>
+				<div class="btn-group m_t_m" role="group" @click="tabList">
+					<button type="button" class="btn btn-default">全部</button>
+					<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" @click="showCurrList">{{typeList}}</button>
+				</div>				
 			</div>
 			<div>
 				<div>
-					<div class="input-group">
+					<div class="input-group m_t_s">
 						<span class="input-group-btn">
         					<button class="btn btn-default" type="button" @click="addItem">+</button>
       					</span>
@@ -61,24 +58,20 @@
 				msg: "",
 				showFinishedList: false,
 				items: [],
-				allLists: [],
-				movieLists: [],
-				bookLists: [],
-				customLists: [],
-				currType:"custom"
-
+				currType: "自定义",
+				typeLists: []
 			};
 		},
 		watch: {
 			allitems: {
 				handler: function(allitems) {
 					storelist.save(allitems)
-					storelist.fetch()
 				},
 				deep: true
 			}
 		},
 		mounted: function() {
+			//获取当前登录用户的清单列表
 			this.allitems.forEach(
 				(item) => {
 					if(item.id == store.state.cid) {
@@ -86,66 +79,45 @@
 					}
 				}
 			);
-			this.allitems.forEach(
-				(item) => {
-					if(item.id == store.state.cid) {
-						this.allLists.push(item);
-					}
-				}
-			);
+			//获取当前登录用户的清单列表中的分类
 			this.items.forEach(
 				(item) => {
-					if(item.subtype == "movie") {
-						this.movieLists.push(item);
-					}
-				}
-			);
-			this.items.forEach(
-				(item) => {
-					if(item.subtype == "book") {
-						this.bookLists.push(item);
-					}
-				}
-			);
-			this.items.forEach(
-				(item) => {
-					if(item.subtype == "custom") {
-						this.customLists.push(item);
+					if(this.typeLists.indexOf(item.subtype) < 0) {
+						this.typeLists.push(item.subtype)
 					}
 				}
 			);
 			console.log("清单：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		},
 		methods: {
-			tabList:function(){
+			getCurrItems: function() {
+				this.items=[]
+				this.allitems.forEach(
+					(item) => {
+						if(item.id == store.state.cid) {
+							this.items.push(item);
+						}
+					}
+				);
+			},
+			getTypeLists: function() {
+				this.typeLists=[]
+				this.items.forEach(
+					(item) => {
+						if(this.typeLists.indexOf(item.subtype) < 0) {
+							this.typeLists.push(item.subtype)
+						}
+					}
+				);
+			},
+			tabList: function() {
 				if(!store.state.cid) {
 					alert("请先登录")
 					return;
 				}
 			},
-			showAllList: function() {
-				this.items =[]
-				this.allitems=storelist.fetch()
-				this.allitems.forEach(
-				(item) => {
-					if(item.id == store.state.cid) {
-						this.items.push(item);
-					}
-				}
-			);
-				this.currType="custom"
-			},
-			showMovieList: function() {
-				this.currType="movie"
-				this.items = this.movieLists
-			},
-			showBookList: function() {
-				this.currType="book"
-				this.items = this.bookLists
-			},
-			showCustomList: function() {
-				this.currType="custom"
-				this.items = this.customLists
+			showCurrList:function(){
+				
 			},
 			toggleFinished: function(item) {
 				item.isfinished = !item.isfinished
@@ -181,20 +153,14 @@
 					alert("请先登录")
 					return;
 				}
-				
 				this.allitems.push({
 					id: store.state.cid,
 					plan: this.newItem,
 					subtype: this.currType,
 					isfinished: false
 				})
-				this.items.push({
-					id: store.state.cid,
-					plan: this.newItem,
-					subtype:this.currType,
-					isfinished: false
-				})
-
+				this.getCurrItems();
+				this.getTypeLists();
 				this.newItem = ""
 			}
 		}
