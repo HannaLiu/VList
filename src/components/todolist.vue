@@ -2,9 +2,9 @@
 	<div id="todolist" class="container">
 		<div>
 			<div>
-				<div class="btn-group m_t_m" role="group" @click="tabList">
-					<button type="button" class="btn btn-default">全部</button>
-					<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" @click="showCurrList">{{typeList}}</button>
+				<div class="btn-group m_t_m" role="group">
+					<button type="button" class="btn btn-default" @click="showAllLists" v-bind:class="{'btn-success':isActive}">全部</button>
+					<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" v-bind:class="{'btn-success':isIndex==index?true:false}" @click="showCurrList(index)">{{typeList}}</button>
 				</div>				
 			</div>
 			<div>
@@ -56,10 +56,13 @@
 				name: "",
 				id: "",
 				msg: "",
+				isActive:true,
 				showFinishedList: false,
 				items: [],
 				currType: "自定义",
-				typeLists: []
+				typeLists: [],
+				currIndex:"",
+				isIndex:-1
 			};
 		},
 		watch: {
@@ -110,14 +113,36 @@
 					}
 				);
 			},
-			tabList: function() {
+			getAllLists:function(){				
+				this.getCurrItems()
+			},
+			getOtherLists:function(){								
+				this.getCurrItems()
+				this.items=[]
+				this.allitems.forEach(
+					(item) => {
+						if(item.subtype == this.currIndex) {
+							this.items.push(item);
+						}
+					}
+				);
+			},
+			showAllLists: function() {
 				if(!store.state.cid) {
 					alert("请先登录")
 					return;
 				}
+				this.isActive=true;
+				this.isIndex=-1;
+				this.getCurrItems();
+				this.getAllLists();
 			},
-			showCurrList:function(){
-				
+			showCurrList:function(index){
+				this.currIndex=this.typeLists[index];
+				this.isActive=false;
+				this.isIndex=index;
+				this.getCurrItems();
+				this.getOtherLists();			
 			},
 			toggleFinished: function(item) {
 				item.isfinished = !item.isfinished
@@ -156,11 +181,14 @@
 				this.allitems.push({
 					id: store.state.cid,
 					plan: this.newItem,
-					subtype: this.currType,
+					subtype: this.currIndex,
 					isfinished: false
 				})
 				this.getCurrItems();
 				this.getTypeLists();
+				
+				
+				
 				this.newItem = ""
 			}
 		}
