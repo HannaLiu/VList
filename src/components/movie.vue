@@ -7,14 +7,20 @@
 			</span>
 		</div>
 		<span class="message">{{msg}}</span>
-		<ul class="movieList">
-			<li v-for="(movie,index) in movies" class="col-xs-3 col-md-2 list_li">
-				<div class="img_main"><img v-bind:src="movie.images.small" class="img-thumbnail" /></div>
-				<p class="title">{{movie.title}}</p>
-				<input type="button" value="我要看" class="btn btn-default" @click="addtolist(index)" v-if="!movie.existlist" />
-				<input type="button" value="移出" class="btn btn-default" @click="deletelist(index)" v-else="movie.existlist" />
-			</li>
-		</ul>
+		<div class="row">
+			<div class="col-xs-6 col-sm-4 col-md-2" v-for="(movie,index) in movies">
+				<div class="thumbnail text-center">
+					<div class="list-img"><img v-bind:src="movie.images.medium" v-bind:alt="movie.title"></div>
+					<div class="caption">
+						<p class="title">{{movie.title}}</p>
+						<p>
+							<input type="button" value="我要看" class="btn btn-default" @click="addtolist(index)" />
+							<!--<input type="button" value="移出" class="btn btn-default" @click="deletelist(index)" v-else/>-->
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -58,7 +64,7 @@
 					alert("请先登录") //此处为显示登录框
 					return
 				}
-				var currlist = []
+				var currlist = []	//当前用户的清单列表
 				this.lists.forEach(
 					(list) => {
 						if(list.id == store.state.cid) {
@@ -66,11 +72,13 @@
 						}
 					}
 				);
+				//判断所选是否已经在清单中
 				var existlist = findel.findElem(currlist, "plan", this.movies[index].title);
 				if(existlist != -1) {
-					alert("已经在列表中")
+					alert("已经在列表中")					
 					return
-				}
+				}		
+				//将当前选中内容添加到清单列表
 				this.lists.push({
 					id: store.state.cid,
 					plan: this.movies[index].title,
@@ -80,7 +88,7 @@
 				alert("添加成功")
 			},
 			deletelist: function() {
-
+				//从清单中删除该条
 			},
 			searchMovie: function() {
 				if(this.moviename.trim() == "") {

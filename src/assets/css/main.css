@@ -12,18 +12,7 @@ header{width:100%; height:90px; position: fixed;top:0; z-index:999; border-botto
 nav ul{float:right;font-size: 0;}
 .nav-menu{height: 90px;border-right: 1px solid #e5e5e5;}
 .nav-menu li{display: inline-block;line-height: 90px;margin: 0 10px;}
-.nav-menu li a{color:#fff; color: #444444;text-align: center; font-weight: bold; font-size: 16px;  padding: 15px;
-	-webkit-transition: all 0.2s ease;
-	-moz-transition: all 0.2s ease;
-	-ms-transition: all 0.2s ease;
-	-o-transition: all 0.2s ease;
-	transition: all 0.2s ease;}
-.nav-menu li a:hover{background-color:#41b883;color:#fff;
-	-webkit-transition: all 0.2s ease;
-	-moz-transition: all 0.2s ease;
-	-ms-transition: all 0.2s ease;
-	-o-transition: all 0.2s ease;
-	transition: all 0.2s ease;}
+.nav-menu li a{color:#fff; color: #555;text-align: center; font-weight: bold; font-size: 16px;  padding:0 15px;display: block;height: 90px;}
 
 .nav-person{float: right;}
 .nav-login{padding-left: 15px;line-height: 90px;}
@@ -39,4 +28,7 @@ nav ul{float:right;font-size: 0;}
 .list_li{margin-bottom: 15px;text-align: center;}
 .m_t_m{margin-top: 30px;}
 .m_t_s{margin-top: 15px;}
+
+.thumbnail .list-img{height: 150px;overflow: hidden;margin-top: 15px;}
+
 

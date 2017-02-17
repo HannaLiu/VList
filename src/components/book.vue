@@ -7,13 +7,19 @@
 			</span>
 		</div>
 		<span class="message">{{msg}}</span>
-		<ul>
-			<li v-for="(book,index) in books" class="col-xs-3 col-md-2 list_li">
-				<div class="img_main"><img v-bind:src="book.images.small" class="img-thumbnail" /></div>
-				<p class="title">{{book.title}}</p>
-				<input type="button" class="btn btn-default" value="我要看" @click="addtolist(index)" />
-			</li>
-		</ul>
+		<div class="row">
+			<div class="col-xs-6 col-sm-4 col-md-2" v-for="(book,index) in books">
+				<div class="thumbnail text-center">
+					<div class="list-img"><img v-bind:src="book.images.medium" v-bind:alt="book.title"></div>
+					<div class="caption">
+						<p class="title">{{book.title}}</p>
+						<p>
+							<input type="button" value="我要看" class="btn btn-default" @click="addtolist(index)"/>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 

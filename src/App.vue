@@ -21,8 +21,10 @@
 		data() {
 			return {
 //				user: storeCurr.fetch()
+				
 			};
 		},
+		props:["isLogin"],
 		mounted: function() {			
 //			console.log("首页：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		}

@@ -5,7 +5,7 @@
 				<div class="btn-group m_t_m" role="group">
 					<button type="button" class="btn btn-default" @click="showAllLists" v-bind:class="{'btn-success':isActive}">全部</button>
 					<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" v-bind:class="{'btn-success':isIndex==index?true:false}" @click="showCurrList(index)">{{typeList}}</button>
-				</div>				
+				</div>
 			</div>
 			<div>
 				<div>
@@ -57,13 +57,13 @@
 				name: "",
 				id: "",
 				msg: "",
-				isActive:true,
+				isActive: true,
 				showFinishedList: false,
 				items: [],
 				currType: "自定义",
 				typeLists: [],
-				currIndex:"",
-				isIndex:-1
+				currIndex: "",
+				isIndex: -1
 			};
 		},
 		watch: {
@@ -94,8 +94,9 @@
 			console.log("清单：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		},
 		methods: {
+			//获取当前登录用户的清单列表
 			getCurrItems: function() {
-				this.items=[]
+				this.items = []
 				this.allitems.forEach(
 					(item) => {
 						if(item.id == store.state.cid) {
@@ -104,8 +105,9 @@
 					}
 				);
 			},
+			//获取当前登录用户的清单列表中的分类
 			getTypeLists: function() {
-				this.typeLists=[]
+				this.typeLists = []
 				this.items.forEach(
 					(item) => {
 						if(this.typeLists.indexOf(item.subtype) < 0) {
@@ -114,12 +116,14 @@
 					}
 				);
 			},
-			getAllLists:function(){				
+			//获取当前登录用户的清单列表中的所有分类
+			getAllLists: function() {
 				this.getCurrItems()
 			},
-			getOtherLists:function(){								
+			//获取当前登录用户的清单列表中的其他分类
+			getOtherLists: function() {
 				this.getCurrItems()
-				this.items=[]
+				this.items = []
 				this.allitems.forEach(
 					(item) => {
 						if(item.subtype == this.currIndex) {
@@ -128,26 +132,30 @@
 					}
 				);
 			},
+			//点击全部按钮
 			showAllLists: function() {
 				if(!store.state.cid) {
 					alert("请先登录")
 					return;
 				}
-				this.isActive=true;
-				this.isIndex=-1;
+				this.isActive = true;
+				this.isIndex = -1;
 				this.getCurrItems();
 				this.getAllLists();
 			},
-			showCurrList:function(index){
-				this.currIndex=this.typeLists[index];
-				this.isActive=false;
-				this.isIndex=index;
+			//点击除“全部”按钮之外的按钮，显示该类别下的清单
+			showCurrList: function(index) {
+				this.currIndex = this.typeLists[index];
+				this.isActive = false;
+				this.isIndex = index;
 				this.getCurrItems();
-				this.getOtherLists();			
+				this.getOtherLists();
 			},
+			//切换清单的完成状况
 			toggleFinished: function(item) {
 				item.isfinished = !item.isfinished
 			},
+			//切换显示已完成清单
 			toggleFinishedList: function() {
 				if(!store.state.cid) {
 					alert("请先登录")
@@ -182,12 +190,12 @@
 				this.allitems.push({
 					id: store.state.cid,
 					plan: this.newItem,
-					subtype: this.isActive?this.currType:this.currIndex,
+					subtype: this.isActive ? this.currType : this.currIndex,
 					isfinished: false
 				})
 				this.getCurrItems();
 				this.getTypeLists();
-				this.isActive?this.getAllLists():this.getOtherLists();				
+				this.isActive ? this.getAllLists() : this.getOtherLists();
 				this.newItem = ""
 			}
 		}

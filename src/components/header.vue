@@ -2,13 +2,15 @@
 	<header>
 		<nav class="container header">
 			<h1 class="logo"><img src="../assets/img/logo.png" /></h1>
-			<div class="nav-person">					
+			<div class="nav-person">
 				<div class="nav-login" v-if="!isLogin">
 					<button class="btn btn-success" href="#" role="button"><router-link to="/register">注册</router-link></button>
 					<button class="btn btn-default" href="#" role="button"><router-link to="/login">登录</router-link></button>
 				</div>
 				<div class="nav-login" v-else>
-					<div class="user-name">{{cname}}</div>
+					<div class="user-name">
+						<router-link to="/profile">{{cname}}</router-link>
+					</div>
 					<button class="btn btn-warning" href="#" role="button" @click="signout">退出</button>
 				</div>
 			</div>
@@ -24,7 +26,7 @@
 				</li>
 				<li>
 					<router-link to="/book">书籍</router-link>
-				</li>					
+				</li>
 			</ul>
 		</nav>
 	</header>
@@ -39,20 +41,20 @@
 		name: 'header',
 		data() {
 			return {
-				isLogin: false,
-				cname:"",
+				isLogin: store.state.isLogin,
+				cname: "",
 				users: storeuser.fetch(),
 				user: storeCurr.fetch()
 			}
 		},
 		components: {
-			
+
 		},
 		mounted: function() {
-			if(store.state.isLogin){
-				this.cname=storeCurr.fetch()[0]["cname"],
-				this.isLogin=true				
-			}			
+			if(store.state.isLogin) {
+				this.cname = storeCurr.fetch()[0]["cname"],
+					this.isLogin = true
+			}
 		},
 		methods: {
 			signout: function() {
@@ -60,7 +62,7 @@
 					return
 				}
 				//返回主页
-				window.location.href="./"
+				window.location.href = "./"
 				store.commit('singout');
 				this.user = []
 				this.user.push({
@@ -76,5 +78,5 @@
 </script>
 
 <style scoped>
-
+	.nav-menu .router-link-active{border-bottom: 5px solid #41B883;}
 </style>

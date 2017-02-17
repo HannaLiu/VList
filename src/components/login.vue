@@ -31,10 +31,25 @@
 				msg: "",
 				cid: "",
 				users: storeuser.fetch(),
-				user: storeCurr.fetch()
+				user: storeCurr.fetch(),
+				hasLogin: false
 			};
 		},
-
+		watch: {
+//			hasLogin: {
+//				handler: function(hasLogin) {
+//					if(hasLogin) {
+//						this.$router.push({
+//							path: '/',
+//							redirect: to => {
+//								todolist
+//							}
+//						})
+//					}
+//				},
+//				deep: true
+//			}
+		},
 		methods: {
 			login: function() {
 				if(this.name.trim() == "") {
@@ -54,21 +69,21 @@
 				if(existpwd == -1) {
 					this.msg = "密码错误"
 					return;
-				}				
-				if(exist != -1 && this.users[exist]["pwd"]==md5(this.pwd)) {
-					alert("登录成功")
-					window.location.href="./"	
 				}
-				
-				//关闭登录框
-				this.user = []
-				this.user.push({
-					cid: this.users[exist]["id"],
-					cname: this.users[exist]["name"],
-					islogin: true
-				})
-				storeCurr.save(this.user)
-				store.commit('login');
+				if(exist != -1 && this.users[exist]["pwd"] == md5(this.pwd)) {
+					//加入session
+					this.user = []
+					this.user.push({
+						cid: this.users[exist]["id"],
+						cname: this.users[exist]["name"],
+						islogin: true
+					})
+					storeCurr.save(this.user)
+					store.commit('login');
+					this.hasLogin = true
+					alert("登录成功")
+					window.location.href = "./"
+				}
 				console.log("当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 				this.name = "";
 				this.pwd = "";
