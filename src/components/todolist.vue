@@ -25,7 +25,8 @@
 					</ul>
 				</div>
 				<div class="task-list">
-					<button class="btn btn-success" @click="toggleFinishedList">显示已完成任务</button>
+					<button class="btn btn-success" @click="toggleFinishedList" v-if="!showFinishedList">显示已完成任务</button>
+					<button class="btn btn-success" @click="toggleFinishedList" v-else>收起已完成任务</button>
 					<transition name="fade" v-if="showFinishedList">
 						<ul>
 							<li>
