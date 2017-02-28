@@ -15,17 +15,8 @@
 				</div>
 			</div>
 			<ul class="nav-menu">
-				<!--<li>
-					<router-link to="/">首页</router-link>
-				</li>-->
 				<li>
 					<router-link to="/todolist">TODO</router-link>
-				</li>
-				<li>
-					<router-link to="/movie">电影</router-link>
-				</li>
-				<li>
-					<router-link to="/book">书籍</router-link>
 				</li>
 			</ul>
 		</nav>

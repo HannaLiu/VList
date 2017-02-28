@@ -1,6 +1,6 @@
 ﻿<template>
 	<div id="register">
-		<div class="model">
+		<div class="form">
 			<div class="form-group">
 				<label>请输入您的用户名</label>
 				<input type="text" class="form-control" placeholder="请输入您的用户名" v-model="newName" v-on:focus="clearMsg" @keyup.13="addUser">

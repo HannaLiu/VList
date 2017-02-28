@@ -13,8 +13,6 @@ import register from './components/register.vue'
 import profile from './components/profile.vue'
 import todolist from './components/todolist.vue'
 import manage from './components/manage.vue'
-import movie from './components/movie.vue'
-import book from './components/book.vue'
 
 const router = new VueRouter({
 	mode: 'history',
@@ -40,12 +38,6 @@ const router = new VueRouter({
 	{
 		path: '/manage',
 		component: manage
-	}, {
-		path: '/movie',
-		component: movie
-	}, {
-		path: '/book',
-		component: book
 	}]
 })
 const app = new Vue({

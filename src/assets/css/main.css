@@ -19,9 +19,9 @@ nav ul{float:right;font-size: 0;}
 .nav-login .btn-default a{color: #555;}
 .nav-login .btn-success a{color: #FFFFFF;}
 .user-name{padding-right:15px;float: left;font-size: 18px; color: #666;font-weight: bold;}
-.model {border: 1px solid #CCCCCC;padding: 30px;width: 300px;margin: 100px auto;}
+.model {position: absolute;top: 0;left: 0;width:100%;height:100%;z-index: 900;padding-top: 200px;}
 .message{color: red;font-size: 14px;margin: 10px 0;display: block;}
-
+.form{width: 300px;border: 1px solid #CCCCCC;padding: 30px; margin: 100px auto;}
 .img_main{width: 100px;height: 150px;overflow: hidden;text-align: center;line-height: 150px;display: inline-block;}
 .img_main img{}
 .title {white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}

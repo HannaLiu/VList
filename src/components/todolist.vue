@@ -1,47 +1,70 @@
 <template>
+
 	<div id="todolist" class="container">
 		<div>
-			<div>
-				<div class="btn-group m_t_m" role="group">
-					<button type="button" class="btn btn-default" @click="showAllLists" v-bind:class="{'btn-success':isActive}">全部</button>
-					<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" v-bind:class="{'btn-success':isIndex==index?true:false}" @click="showCurrList(index)">{{typeList}}</button>
-					<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>
-				</div>
+			<div class="btn-group m_t_m" role="group">
+				<button type="button" class="btn btn-default" @click="showAllLists" v-bind:class="{'btn-success':isActive}">全部</button>
+				<!--<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" v-bind:class="{'btn-success':isIndex==index?true:false}" @click="showCurrList(index)">{{typeList}}</button>-->
+				<button type="button" class="btn btn-default" @click="showInListType=true"><i class="fa fa-plus"></button>
+				<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>
 			</div>
-			<div>
-				<div>
-					<div class="input-group m_t_s">
-						<span class="input-group-btn">
-        					<button class="btn btn-default" type="button" @click="addItem">+</button>
-      					</span>
-						<input type="text" class="form-control" placeholder="请添加计划" v-model="newItem" @keyup.13="addItem" @focus="checkLogin" @blur="clearMsg">
+		</div>
+		<div v-if="showInListType">
+			<div class="model">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
+							<h4 class="modal-title">为新增的分类取个名字</h4>
+						</div>
+						<div class="modal-body">
+							<input type="text" class="form-control" placeholder="请输入分类的名称" v-model="newItem" @keyup.13="addItem" @focus="checkLogin" @blur="clearMsg">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" @click="showInListType=false">取消</button>
+							<button type="button" class="btn btn-primary" @click="addNewType()">确定</button>
+						</div>
 					</div>
-				</div>
-				<p class="message">{{msg}}</p>
-				<div class="task-list">
-					<ul>
-						<li v-for="item in items" :class="{finished:item.isfinished}" v-if="!item.isfinished" @dbclick="">
-							<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/><span>{{item.plan}}</span></label>
-						</li>
-					</ul>
-				</div>
-				<div class="task-list">
-					<button class="btn btn-success" @click="toggleFinishedList" v-if="!showFinishedList">收起已完成任务</button>
-					<button class="btn btn-success" @click="toggleFinishedList" v-else>显示已完成任务</button>					
-					<transition name="fade" v-if="!showFinishedList">
-						<ul>
-							<li>
-								<h5 v-if="showDefault()">暂无完成任务</h5>
-								<h5 v-else>以下为完成任务</h5>
-							</li>
-							<li v-for="item in items" :class="{finished:item.isfinished}" v-if="item.isfinished">
-								<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/>{{item.plan}}</label>
-							</li>
-						</ul>
-					</transition>
 				</div>
 			</div>
 		</div>
+		<div>
+			<div>
+				<div class="input-group m_t_s">
+					<span class="input-group-btn">
+    					<button class="btn btn-default" type="button" @click="addItem">+</button>
+  					</span>
+					<input type="text" class="form-control" placeholder="请添加计划" v-model="newItem" @keyup.13="addItem" @focus="checkLogin" @blur="clearMsg">
+				</div>
+			</div>
+			<p class="message">{{msg}}</p>
+			<div class="task-list">
+				<ul>
+					<li v-for="item in items" :class="{finished:item.isfinished}" v-if="!item.isfinished" @oncontextmenu="showLeft=true">
+						<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/><span>{{item.plan}}</span></label>
+					</li>
+				</ul>
+			</div>
+			<div class="task-list">
+				<button class="btn btn-success" @click="toggleFinishedList" v-if="!showFinishedList">收起已完成任务</button>
+				<button class="btn btn-success" @click="toggleFinishedList" v-else>显示已完成任务</button>
+				<transition name="fade" v-if="!showFinishedList">
+					<ul>
+						<li>
+							<h5 v-if="showDefault()">暂无完成任务</h5>
+							<h5 v-else>以下为完成任务</h5>
+						</li>
+						<li v-for="item in items" :class="{finished:item.isfinished}" v-if="item.isfinished">
+							<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/>{{item.plan}}</label>
+						</li>
+					</ul>
+				</transition>
+			</div>
+		</div>
+		<!--<input type="button" @click="showLeft=true" />
+		<aside :show.sync="showLeft" placement="left" header="Title" width="350">
+			pp
+		</aside>-->
 	</div>
 </template>
 
@@ -49,6 +72,8 @@
 	import storelist from '../data/storelist'
 	import findel from '../modules/findElem'
 	import store from '../store/store-global'
+	import aside from 'vue-strap'
+
 	export default {
 		name: 'todolist',
 		data() {
@@ -61,11 +86,16 @@
 				isActive: true,
 				showFinishedList: false,
 				items: [],
-				currType: "自定义",
+				//				currType:0,
 				typeLists: [],
 				currIndex: "",
-				isIndex: -1
+				isIndex: -1,
+				showInListType: false,
+				showLeft:false
 			};
+		},
+		components: {
+			aside
 		},
 		watch: {
 			allitems: {
@@ -95,7 +125,11 @@
 			console.log("清单：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		},
 		methods: {
-			manageList:function(){
+			addNewType: function() {
+				showInListType = false
+
+			},
+			manageList: function() {
 				if(!store.state.cid) {
 					alert("请先登录")
 					return;
@@ -106,7 +140,7 @@
 						manage
 					}
 				})
-			},			
+			},
 			//获取当前登录用户的清单列表
 			getCurrItems: function() {
 				this.items = []
@@ -203,12 +237,12 @@
 				this.allitems.push({
 					id: store.state.cid,
 					plan: this.newItem,
-					subtype: this.isActive ? this.currType : this.currIndex,
+					//					subtype: this.isActive ? this.currType : this.currIndex,
 					isfinished: false
 				})
 				this.getCurrItems();
 				this.getTypeLists();
-				this.isActive ? this.getAllLists() : this.getOtherLists();
+				//				this.isActive ? this.getAllLists() : this.getOtherLists();
 				this.newItem = ""
 			}
 		}
@@ -216,9 +250,6 @@
 </script>
 
 <style scoped>
-	@import '../assets/css/font-awesome/font-awesome.min.css';
-	@import '../assets/css/bootstrap.min.css';
-	@import "../assets/css/main.css";
 	.fade-enter-active,
 	.fade-leave-active {
 		transition: opacity .5s
@@ -237,6 +268,7 @@
 		padding-top: 0px;
 		padding-left: 15px;
 	}
+	
 	.active {
 		background: green;
 	}

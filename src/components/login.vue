@@ -1,6 +1,6 @@
 <template>
-	<div id="login">
-		<div class="model">
+	<div id="login" class="row">
+		<div class="form">
 			<div class="form-group">
 				<label>请输入您的用户名</label>
 				<input type="text" class="form-control" placeholder="请输入您的用户名" v-model="name" v-on:focus="clearMsg" @keyup.13="login">
@@ -35,21 +35,7 @@
 				hasLogin: false
 			};
 		},
-		watch: {
-//			hasLogin: {
-//				handler: function(hasLogin) {
-//					if(hasLogin) {
-//						this.$router.push({
-//							path: '/',
-//							redirect: to => {
-//								todolist
-//							}
-//						})
-//					}
-//				},
-//				deep: true
-//			}
-		},
+		watch: {},
 		methods: {
 			login: function() {
 				if(this.name.trim() == "") {
