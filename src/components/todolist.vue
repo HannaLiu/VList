@@ -104,6 +104,7 @@
 			}
 		},
 		mounted: function() {
+			//当前页三个数组，1是直接读取缓存的全部数据，2是当前用户的所有计划，3是当前用户不为空的计划（空的是新建分类时加入的）			
 			//获取当前登录用户的清单列表
 			this.allitems.forEach(
 				(item) => {
@@ -246,7 +247,7 @@
 				this.allitems.push({
 					id: store.state.cid,
 					plan: this.newItem,
-					subtype: this.isActive ? "自定义" : this.newType,
+					subtype: this.isActive ? "未分类" : this.newType,
 					isfinished: false
 				})
 				this.getCurrItems();
@@ -271,8 +272,7 @@
 				this.getCurrItems();
 				this.getTypeLists();
 				this.isActive ? this.getAllLists() : this.getOtherLists();
-				this.newItem = ""
-
+				this.newItem = ""		
 				this.showInListType = false
 			}
 		}
