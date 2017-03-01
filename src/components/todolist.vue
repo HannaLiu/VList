@@ -31,31 +31,31 @@
 		</div>
 		<div>
 			<div>
-				<div class="input-group m_t_s">
+				<div class="input-group m_t_s m_b_s">
 					<span class="input-group-btn">
-    					<button class="btn btn-default" type="button" @click="addItem">+</button>
+    					<button class="btn btn-default btn-lg" type="button" @click="addItem">+</button>
   					</span>
-					<input type="text" class="form-control" placeholder="请添加计划" v-model="newItem" @keyup.13="addItem" @focus="checkLogin" @blur="clearMsg">
+					<input type="text" class="form-control input-lg" placeholder="添加计划..." v-model="newItem" @keyup.13="addItem" @focus="checkLogin" @blur="clearMsg">
 				</div>
 			</div>
 			<div class="task-list">
 				<ul>
-					<li v-for="item in items" :class="{finished:item.isfinished}" v-if="!item.isfinished" @oncontextmenu="showLeft=true">
+					<li v-for="item in items" class="plan_list" :class="{finished:item.isfinished}" v-if="!item.isfinished" @oncontextmenu="showLeft=true">
 						<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/><span>{{item.plan}}</span></label>
 					</li>
 				</ul>
 			</div>
 			<div class="task-list">
-				<button class="btn btn-success" @click="toggleFinishedList" v-if="!showFinishedList">收起已完成任务</button>
-				<button class="btn btn-success" @click="toggleFinishedList" v-else>显示已完成任务</button>
+				<button class="btn btn-success m_t_s" @click="toggleFinishedList" v-if="!showFinishedList">收起已完成任务</button>
+				<button class="btn btn-success m_t_s" @click="toggleFinishedList" v-else>显示已完成任务</button>
 				<transition name="fade" v-if="!showFinishedList">
 					<ul>
 						<li>
 							<h5 v-if="showDefault()">暂无完成任务</h5>
 							<h5 v-else>以下为完成任务</h5>
 						</li>
-						<li v-for="item in items" :class="{finished:item.isfinished}" v-if="item.isfinished">
-							<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/>{{item.plan}}</label>
+						<li v-for="item in items" class="plan_list plan_list_done" :class="{finished:item.isfinished}" v-if="item.isfinished">
+							<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/><span class="line-through">{{item.plan}}</span></label>
 						</li>
 					</ul>
 				</transition>
@@ -161,7 +161,6 @@
 							}
 							//所有的列表
 							this.mainItems.push(item);
-							console.log(this.mainItems)
 						}
 					}
 				);
@@ -176,10 +175,6 @@
 						}
 					}
 				);
-			},
-			//获取当前登录用户的清单列表中的“全部”分类
-			getAllLists: function() {
-				this.getCurrItems()
 			},
 			//获取当前登录用户的清单列表中的其他分类
 			getOtherLists: function() {
@@ -202,7 +197,7 @@
 				this.isActive = true;
 				this.isIndex = -1;
 				this.getCurrItems();
-				this.getAllLists();
+				this.getTypeLists();
 			},
 			//点击除“全部”按钮之外的按钮，显示该类别下的清单
 			showCurrList: function(index) {
@@ -247,12 +242,12 @@
 				this.allitems.push({
 					id: store.state.cid,
 					plan: this.newItem,
-					subtype: this.isActive ? "未分类" : this.newType,
+					subtype: this.isActive ? "未分类" : this.currIndex,
 					isfinished: false
 				})
 				this.getCurrItems();
 				this.getTypeLists();
-				this.isActive ? this.getAllLists() : this.getOtherLists();
+				this.isActive ? this.getTypeLists() : this.getOtherLists();
 				this.newItem = ""
 			},
 			addNewType: function() {
@@ -271,8 +266,8 @@
 				})
 				this.getCurrItems();
 				this.getTypeLists();
-				this.isActive ? this.getAllLists() : this.getOtherLists();
-				this.newItem = ""		
+				this.isActive ? this.getTypeLists() : this.getOtherLists();
+				this.newType = ""		
 				this.showInListType = false
 			}
 		}
@@ -302,17 +297,10 @@
 	.active {
 		background: green;
 	}
-	
-	ul {
-		margin: 15px;
-		font-size: 16px;
-	}
-	
-	li {
-		height: 30px;
-	}
+	label{margin-bottom: 0;}
 	
 	input[type=checkbox] {
 		margin-right: 10px;
+		vertical-align: baseline;
 	}
 </style>
