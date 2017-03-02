@@ -40,10 +40,10 @@
 			</div>
 			<div class="task-list">
 				<ul>
-					<li v-for="item in items" class="plan_list" :class="{finished:item.isfinished}" v-if="!item.isfinished" @oncontextmenu="showLeft=true">
+					<li v-for="(item,index) in items" class="plan_list" :class="[{finished:item.isfinished},{'active':selectedIndex==index?true:false}]" v-if="!item.isfinished" @oncontextmenu="showLeft=true">
 						<div class="labelforlist">
 				        	<label class="checkboxInput"><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/></label>
-							<span class="item_plan">{{item.plan}}</span>
+							<span class="item_plan" @click="addActive(index)">{{item.plan}}</span>
 						</div>
 					</li>
 				</ul>
@@ -57,10 +57,10 @@
 							<h5 v-if="showDefault()">暂无完成任务</h5>
 							<h5 v-else>以下为完成任务</h5>
 						</li>
-						<li v-for="item in items" class="plan_list plan_list_done" :class="{finished:item.isfinished}" v-if="item.isfinished">
+						<li v-for="(item,index) in items" class="plan_list plan_list_done" :class="[{finished:item.isfinished},{'active':selectedIndex==index?true:false}]" v-if="item.isfinished">
 							<div class="labelforlist">
 					        	<label class="checkboxInput"><input type="checkbox" class="nochecked" @click="toggleFinished" v-model="item.isfinished"/></label>
-								<span class="item_plan line-through">{{item.plan}}</span>
+								<span class="item_plan line-through" @click="addActive(index)">{{item.plan}}</span>
 							</div>
 						</li>
 					</ul>
@@ -98,7 +98,8 @@
 				showInListType: false,
 				showLeft: false,
 				newType: "",
-				mainItems: []
+				mainItems: [],
+				selectedIndex:-1
 			};
 		},
 		watch: {
@@ -213,6 +214,10 @@
 				this.isIndex = index;
 				this.getCurrItems();
 				this.getOtherLists();
+			},
+			//点击一个计划，变为选中的样式
+			addActive:function(index){
+				this.selectedIndex = index;
 			},
 			//切换清单的完成状况
 			toggleFinished: function(item) {

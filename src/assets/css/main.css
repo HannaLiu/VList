@@ -37,6 +37,8 @@ nav ul{float:right;font-size: 0;}
 .line-through{text-decoration: line-through;}
 
 .item_plan{display: inline-block;width:95%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-left: 10px;}
+.plan_list.active,.plan_list.active input{background: #e1f2fe;}
+
 .fade-enter-active,
 .fade-leave-active {transition: opacity .5s}
 .fade-enter,
