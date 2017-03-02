@@ -2,11 +2,11 @@
 
 	<div id="todolist" class="container">
 		<div>
-			<div class="btn-group m_t_m" role="group">
+			<div class="btn-group m_t_m typeBtn" role="group">
 				<button type="button" class="btn btn-default" @click="showAllLists" v-bind:class="{'btn-success':isActive}">全部</button>
 				<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" v-bind:class="{'btn-success':isIndex==index?true:false}" @click="showCurrList(index)">{{typeList}}</button>
 				<button type="button" class="btn btn-default" @click="showAddTypeModal"><i class="fa fa-plus"></button>
-				<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>
+				<!--<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>-->
 			</div>
 			<span class="message">{{msg}}</span>
 		</div>
@@ -71,31 +71,61 @@
 			<div class="fixedEdit" v-if="isShowEdit">
 				<i class="fa fa-angle-double-right arrow" @click="hideEdit"></i>
 				<i class="fa fa-trash delete" @click="showDeleteConfirm=true"></i>
-				<div class="labelforlist m_t_s editMain">
+				<div class="labelforlist m_t_m editMain">
 					<label class="checkboxInput">
 						<input type="checkbox" :class="{'nochecked':item.isfinished}" v-model="item.isfinished"/>
 					</label>
 					<textarea tabindex="0" class="form-control editText" v-model="item.plan" @blur="checkEmpty()"></textarea>
+					<!--<p>分类：{{item.subtype}}</p>
+					<select>
+					  <option v-for="(type,index) in typeLists">{{typeLists[index] }}</option>
+					</select>-->
 				</div>
-			</div>			
+			</div>
+		</transition>
+		<transition name="slide-fade">
+			<div class="fixedEdit" v-if="isShowEditType">
+				<i class="fa fa-angle-double-right arrow" @click="hideEditType"></i>
+				<div class="m_t_s" v-for="(type,index) in typeLists">
+					<input type="text" class="form-control" v-model="typeLists[index]" @blur="checkEmptyType(index)" />
+				</div>
+			</div>
 		</transition>
 		<div v-if="showDeleteConfirm">
-				<div class="model text-center">
-					<div class="modal-dialog modal-sm">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
-								<h4 class="modal-title">确定删除吗</h4>
-							</div>
-							<div class="modal-body">
-								<button type="button" class="btn btn-default" @click="showDeleteConfirm=false">取消</button>
-								<button type="button" class="btn btn-primary" @click="deleteList">确定</button>
-							</div>
+			<div class="model text-center">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
+							<h4 class="modal-title">确定删除吗</h4>
+						</div>
+						<div class="modal-body">
+							<button type="button" class="btn btn-default" @click="showDeleteConfirm=false">取消</button>
+							<button type="button" class="btn btn-primary" @click="deleteList">确定</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div v-if="showEditTypeConfirm">
+			<div class="model text-center">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
+							<h4 class="modal-title">确定删除该分类吗</h4>
+						</div>
+						<div class="modal-body">
+							<button type="button" class="btn btn-default" @click="showEditTypeConfirm=false">取消</button>
+							<button type="button" class="btn btn-primary" @click="deleteType">确定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </template>
 
 <script>
@@ -123,7 +153,9 @@
 				newType: "",
 				mainItems: [],
 				selectedIndex: -1,
-				showDeleteConfirm:false
+				showDeleteConfirm: false,
+				isShowEditType: false,
+				showEditTypeConfirm: false
 			};
 		},
 		watch: {
@@ -157,6 +189,7 @@
 					}
 				}
 			);
+			console.log(this.typeLists)
 			console.log("清单：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		},
 		methods: {
@@ -172,12 +205,7 @@
 					this.msg = "请先登录"
 					return;
 				}
-				this.$router.push({
-					path: '/manage',
-					redirect: to => {
-						manage
-					}
-				})
+				this.isShowEditType = true
 			},
 			//获取当前登录用户的清单列表
 			getCurrItems: function() {
@@ -252,21 +280,32 @@
 			},
 			hideEdit: function(item) {
 				if(this.item.plan.trim() == "") {
-					this.showDeleteConfirm=true
-				}else{
+					this.showDeleteConfirm = true
+				} else {
 					this.isShowEdit = false;
-				}								
+				}
+			},
+			hideEditType: function() {
+				this.isShowEditType = false;
 			},
 			checkEmpty: function(editItem) {
 				if(this.item.plan.trim() == "") {
-					this.showDeleteConfirm=true
+					this.showDeleteConfirm = true
 				}
 			},
-			deleteList:function(){
-				this.showDeleteConfirm=false			
-				this.isShowEdit=false
+			checkEmptyType: function(index) {
+				if(this.typeLists[index].trim() == "") {
+					this.showEditTypeConfirm = true
+				}
+			},
+			deleteList: function() {
+				this.showDeleteConfirm = false
+				this.isShowEdit = false
 				this.item.plan = ""
 				this.getCurrItems()
+			},
+			deleteType:function(index){
+				
 			},
 			//切换清单的完成状况
 			toggleFinished: function(item) {

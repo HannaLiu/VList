@@ -32,6 +32,8 @@ nav ul{float:right;font-size: 0;}
 
 .thumbnail .list-img{height: 150px;overflow: hidden;margin-top: 15px;}
 
+.typeBtn button{min-height: 34px;}
+
 .plan_list{border: 1px solid #DDDDDD;border-radius: 4px;margin-top: 3px;padding:0 15px;height:46px;line-height:46px;font-size: 18px;}
 .plan_list_done{opacity: 0.7;}
 .line-through{text-decoration: line-through;}
