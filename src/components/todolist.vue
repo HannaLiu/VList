@@ -41,13 +41,10 @@
 			<div class="task-list">
 				<ul>
 					<li v-for="item in items" class="plan_list" :class="{finished:item.isfinished}" v-if="!item.isfinished" @oncontextmenu="showLeft=true">
-						<label>
-						 	<div class="checkbox">
-					            <input type="checkbox" value="1" id="checkboxInput" name="" @click="toggleFinished" v-model="item.isfinished"/>
-					            <label for="checkboxInput"></label>
-				        	</div>
+						<div class="labelforlist">
+				        	<label class="checkboxInput"><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/></label>
 							<span class="item_plan">{{item.plan}}</span>
-						</label>
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -61,13 +58,10 @@
 							<h5 v-else>以下为完成任务</h5>
 						</li>
 						<li v-for="item in items" class="plan_list plan_list_done" :class="{finished:item.isfinished}" v-if="item.isfinished">
-							<label>
-								<div class="checkbox checkboxchecked">
-						            <input type="checkbox" value="1" id="checkboxInput" name="" @click="toggleFinished" v-model="item.isfinished"/>
-						            <label for="checkboxInput"></label>
-					        	</div>
+							<div class="labelforlist">
+					        	<label class="checkboxInput"><input type="checkbox" class="nochecked" @click="toggleFinished" v-model="item.isfinished"/></label>
 								<span class="item_plan line-through">{{item.plan}}</span>
-							</label>
+							</div>
 						</li>
 					</ul>
 				</transition>
