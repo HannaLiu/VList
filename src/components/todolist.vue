@@ -40,9 +40,9 @@
 			</div>
 			<div class="task-list">
 				<ul>
-					<li v-for="(item,index) in items" class="plan_list" :class="[{finished:item.isfinished},{'active':selectedIndex==index?true:false}]" v-if="!item.isfinished" @oncontextmenu="showLeft=true">
+					<li v-for="(item,index) in items" class="plan_list" :class="[{finished:item.isfinished},{'active':selectedIndex==index?true:false}]" v-if="!item.isfinished" @dblclick="showEdit(item)">
 						<div class="labelforlist">
-				        	<label class="checkboxInput"><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/></label>
+							<label class="checkboxInput"><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/></label>
 							<span class="item_plan" @click="addActive(index)">{{item.plan}}</span>
 						</div>
 					</li>
@@ -57,9 +57,9 @@
 							<h5 v-if="showDefault()">暂无完成任务</h5>
 							<h5 v-else>以下为完成任务</h5>
 						</li>
-						<li v-for="(item,index) in items" class="plan_list plan_list_done" :class="[{finished:item.isfinished},{'active':selectedIndex==index?true:false}]" v-if="item.isfinished">
+						<li v-for="(item,index) in items" class="plan_list plan_list_done" :class="[{finished:item.isfinished},{'active':selectedIndex==index?true:false}]" v-if="item.isfinished" @dblclick="showEdit(item)">
 							<div class="labelforlist">
-					        	<label class="checkboxInput"><input type="checkbox" class="nochecked" @click="toggleFinished" v-model="item.isfinished"/></label>
+								<label class="checkboxInput"><input type="checkbox" class="nochecked" @click="toggleFinished" v-model="item.isfinished"/></label>
 								<span class="item_plan line-through" @click="addActive(index)">{{item.plan}}</span>
 							</div>
 						</li>
@@ -67,18 +67,41 @@
 				</transition>
 			</div>
 		</div>
-		<!--<input type="button" @click="showLeft=true" />
-		<aside :show.sync="showLeft" placement="left" header="Title" width="350">
-			pp
-		</aside>-->
-	</div>
+		<transition name="slide-fade">
+			<div class="fixedEdit" v-if="isShowEdit">
+				<i class="fa fa-angle-double-right arrow" @click="hideEdit"></i>
+				<i class="fa fa-trash delete" @click="showDeleteConfirm=true"></i>
+				<div class="labelforlist m_t_s editMain">
+					<label class="checkboxInput">
+						<input type="checkbox" :class="{'nochecked':item.isfinished}" v-model="item.isfinished"/>
+					</label>
+					<textarea tabindex="0" class="form-control editText" v-model="item.plan" @blur="checkEmpty()"></textarea>
+				</div>
+			</div>			
+		</transition>
+		<div v-if="showDeleteConfirm">
+				<div class="model text-center">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
+								<h4 class="modal-title">确定删除吗</h4>
+							</div>
+							<div class="modal-body">
+								<button type="button" class="btn btn-default" @click="showDeleteConfirm=false">取消</button>
+								<button type="button" class="btn btn-primary" @click="deleteList">确定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </template>
 
 <script>
 	import storelist from '../data/storelist'
 	import findel from '../modules/findElem'
 	import store from '../store/store-global'
-	import aside from 'vue-strap'
 
 	export default {
 		name: 'todolist',
@@ -96,10 +119,11 @@
 				currIndex: "",
 				isIndex: -1,
 				showInListType: false,
-				showLeft: false,
+				isShowEdit: false,
 				newType: "",
 				mainItems: [],
-				selectedIndex:-1
+				selectedIndex: -1,
+				showDeleteConfirm:false
 			};
 		},
 		watch: {
@@ -121,7 +145,7 @@
 							this.items.push(item);
 						}
 						//该用户所有的计划
-						this.mainItems.push(item);						
+						this.mainItems.push(item);
 					}
 				}
 			);
@@ -158,7 +182,7 @@
 			//获取当前登录用户的清单列表
 			getCurrItems: function() {
 				this.items = []
-				this.mainItems=[]
+				this.mainItems = []
 				this.allitems.forEach(
 					(item) => {
 						if(item.id == store.state.cid) {
@@ -190,7 +214,7 @@
 				this.items = []
 				this.mainItems.forEach(
 					(item) => {
-						if(item.subtype == this.currIndex && item.plan.trim() != ""){
+						if(item.subtype == this.currIndex && item.plan.trim() != "") {
 							this.items.push(item);
 						}
 					}
@@ -216,8 +240,33 @@
 				this.getOtherLists();
 			},
 			//点击一个计划，变为选中的样式
-			addActive:function(index){
+			addActive: function(index) {
 				this.selectedIndex = index;
+			},
+			//双击计划列表
+			showEdit: function(item) {
+				this.isShowEdit = false;
+				this.item = item;
+				this.editItem = this.item
+				this.isShowEdit = true;
+			},
+			hideEdit: function(item) {
+				if(this.item.plan.trim() == "") {
+					this.showDeleteConfirm=true
+				}else{
+					this.isShowEdit = false;
+				}								
+			},
+			checkEmpty: function(editItem) {
+				if(this.item.plan.trim() == "") {
+					this.showDeleteConfirm=true
+				}
+			},
+			deleteList:function(){
+				this.showDeleteConfirm=false			
+				this.isShowEdit=false
+				this.item.plan = ""
+				this.getCurrItems()
 			},
 			//切换清单的完成状况
 			toggleFinished: function(item) {
@@ -279,7 +328,7 @@
 				this.getCurrItems();
 				this.getTypeLists();
 				this.isActive ? this.getTypeLists() : this.getOtherLists();
-				this.newType = ""		
+				this.newType = ""
 				this.showInListType = false
 			}
 		}
@@ -287,5 +336,5 @@
 </script>
 
 <style scoped>
-	
+
 </style>
