@@ -41,7 +41,13 @@
 			<div class="task-list">
 				<ul>
 					<li v-for="item in items" class="plan_list" :class="{finished:item.isfinished}" v-if="!item.isfinished" @oncontextmenu="showLeft=true">
-						<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/><span>{{item.plan}}</span></label>
+						<label>
+						 	<div class="checkbox">
+					            <input type="checkbox" value="1" id="checkboxInput" name="" @click="toggleFinished" v-model="item.isfinished"/>
+					            <label for="checkboxInput"></label>
+				        	</div>
+							<span class="item_plan">{{item.plan}}</span>
+						</label>
 					</li>
 				</ul>
 			</div>
@@ -55,7 +61,13 @@
 							<h5 v-else>以下为完成任务</h5>
 						</li>
 						<li v-for="item in items" class="plan_list plan_list_done" :class="{finished:item.isfinished}" v-if="item.isfinished">
-							<label><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/><span class="line-through">{{item.plan}}</span></label>
+							<label>
+								<div class="checkbox checkboxchecked">
+						            <input type="checkbox" value="1" id="checkboxInput" name="" @click="toggleFinished" v-model="item.isfinished"/>
+						            <label for="checkboxInput"></label>
+					        	</div>
+								<span class="item_plan line-through">{{item.plan}}</span>
+							</label>
 						</li>
 					</ul>
 				</transition>
@@ -132,6 +144,7 @@
 			showAddTypeModal: function() {
 				if(!store.state.cid) {
 					this.msg = "请先登录"
+					return
 				}
 				this.showInListType = true
 			},
@@ -275,32 +288,5 @@
 </script>
 
 <style scoped>
-	.fade-enter-active,
-	.fade-leave-active {
-		transition: opacity .5s
-	}
 	
-	.fade-enter,
-	.fade-leave-active {
-		opacity: 0
-	}
-	
-	.task-list li {
-		word-break: break-all;
-	}
-	
-	.message {
-		padding-top: 0px;
-		padding-left: 15px;
-	}
-	
-	.active {
-		background: green;
-	}
-	label{margin-bottom: 0;}
-	
-	input[type=checkbox] {
-		margin-right: 10px;
-		vertical-align: baseline;
-	}
 </style>
