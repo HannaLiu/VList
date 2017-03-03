@@ -10,7 +10,7 @@
 				<input type="password" class="form-control" placeholder="请输入您的密码" v-model="pwd" v-on:focus="clearMsg" @keyup.13="login">
 			</div>
 			<p class="message">{{msg}}</p>
-			<div class="text-center"><button type="submit" class="btn btn-default" @click="login">登录</button></div>
+			<div class="text-center"><button type="submit" class="btn btn-success" @click="login">登录</button></div>
 		</div>
 	</div>
 </template>
@@ -52,7 +52,7 @@
 					this.msg = "该用户名未注册"
 					return;
 				}
-				if(existpwd == -1) {
+				if(exist != -1 && this.users[exist]["pwd"] != md5(this.pwd)) {
 					this.msg = "密码错误"
 					return;
 				}

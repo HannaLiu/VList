@@ -78,7 +78,7 @@
 					<textarea tabindex="0" class="form-control editText" v-model="item.plan" @blur="checkEmpty()"></textarea>
 					<!--<p>分类：{{item.subtype}}</p>
 					<select>
-					  <option v-for="(type,index) in typeLists">{{typeLists[index] }}</option>
+					  <option v-for="(type,index) in typeLists">{{typeLists[index]}}</option>
 					</select>-->
 				</div>
 			</div>
@@ -124,8 +124,6 @@
 			</div>
 		</div>
 	</div>
-
-
 </template>
 
 <script>
@@ -189,7 +187,6 @@
 					}
 				}
 			);
-			console.log(this.typeLists)
 			console.log("清单：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		},
 		methods: {
@@ -217,7 +214,6 @@
 							//计划不为空的计划，显示在列表中的
 							if(item.plan.trim() != "") {
 								this.items.push(item);
-								console.log(this.items)
 							}
 							//所有的列表
 							this.mainItems.push(item);

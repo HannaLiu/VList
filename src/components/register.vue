@@ -14,7 +14,7 @@
 				<input type="password" class="form-control" placeholder="请确认您的密码" ref="checkPwd" v-on:focus="clearMsg" @keyup.13="addUser">
 			</div>
 			<p class="message" ref="msg">{{msg}}</p>
-			<div class="text-center"><button type="submit" class="btn btn-default" @click="addUser">注册</button></div>
+			<div class="text-center"><button type="submit" class="btn btn-success" @click="addUser">注册</button></div>
 		</div>
 	</div>
 </template>
