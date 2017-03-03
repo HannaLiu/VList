@@ -34,7 +34,7 @@ nav ul{float:right;font-size: 0;}
 
 .typeBtn button{min-height: 34px;}
 
-.plan_list{border: 1px solid #DDDDDD;border-radius: 4px;margin-top: 3px;padding:0 15px;height:46px;line-height:46px;font-size: 18px;}
+.plan_list{border: 1px solid #DDDDDD;border-radius: 4px;margin-top: 3px;padding:0 15px;height:46px;line-height:46px;font-size: 18px;cursor: pointer;}
 .plan_list_done{opacity: 0.7;}
 .line-through{text-decoration: line-through;}
 
@@ -87,6 +87,17 @@ input[type=checkbox].nochecked{
 .fixedEdit{width: 400px;height:100%;background:#FFFFFF;position: fixed;right: 0;top: 0;border-left: 1px solid #ddd;z-index: 999;padding: 15px;box-shadow: 0 0 15px rgba(0,0,0,0.3);}
 .fixedEdit .fa{font-size: 28px;font-weight: lighter;cursor: pointer;}
 .fixedEdit .delete{float: right;}
-.editMain textarea.form-control:focus{border-color: transparent;box-shadow: none;}
+.editMain textarea.form-control:focus{border-color: #DDDDDD;box-shadow: none;}
 .editMain{border-bottom: 1px solid #DDDDDD;}
 .editText{line-height: 28px;font-size: 18px;padding: 0;border:none;margin-top: 9px;min-height:46px;height:100%;width:100%;max-width:100%;box-shadow: none;border-color: transparent;border-bottom: 1px solid #DDDDDD;}
+.item_plan::selection {
+    background-color: transparent ;
+}
+
+.item_plan::-moz-selection {
+    background-color: transparent ;
+}
+
+.item_plan::-webkit-selection {
+    background-color: transparent ;
+}
