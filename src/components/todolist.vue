@@ -6,7 +6,7 @@
 				<button type="button" class="btn btn-default" @click="showAllLists" v-bind:class="{'btn-success':isActive}">全部</button>
 				<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" v-bind:class="{'btn-success':isIndex==index?true:false}" @click="showCurrList(index)">{{typeList}}</button>
 				<button type="button" class="btn btn-default" @click="showAddTypeModal"><i class="fa fa-plus"></button>
-				<!--<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>-->
+				<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>
 			</div>
 			<span class="message">{{msg}}</span>
 		</div>
@@ -71,11 +71,18 @@
 			<div class="fixedEdit" v-if="isShowEdit">
 				<i class="fa fa-angle-double-right arrow" @click="hideEdit"></i>
 				<i class="fa fa-trash delete" @click="showDeleteConfirm=true"></i>
-				<div class="labelforlist m_t_m editMain">
-					<label class="checkboxInput">
+				<div class="labelforlist m_t_m editMain clearfix">
+					<label class="checkboxInput float_l">
 						<input type="checkbox" :class="{'nochecked':item.isfinished}" v-model="item.isfinished"/>
 					</label>
-					<textarea tabindex="0" class="form-control editText" v-model="item.plan" @blur="checkEmpty()"></textarea>
+					<div class="col-xs-10">
+						<!--此处用div模拟textarea-->
+						<!--<div class="divtextarea"  contenteditable="true">
+							{{item.plan}}
+						</div>-->
+						<textarea tabindex="0" class="form-control editText" v-model="item.plan" @blur="checkEmpty()"></textarea>
+					</div>
+					<!--此处修改当前清单的type-->
 					<!--<p>分类：{{item.subtype}}</p>
 					<select>
 					  <option v-for="(type,index) in typeLists">{{typeLists[index]}}</option>
@@ -87,7 +94,10 @@
 			<div class="fixedEdit" v-if="isShowEditType">
 				<i class="fa fa-angle-double-right arrow" @click="hideEditType"></i>
 				<div class="m_t_s" v-for="(type,index) in typeLists">
-					<input type="text" class="form-control" v-model="typeLists[index]" @blur="checkEmptyType(index)" />
+					<div class="col-xs-11">
+						<input type="text" class="form-control" v-model="typeLists[index]" @blur="checkEmptyType(index)" />
+					</div>
+					<i class="fa fa-trash" @click="showEditTypeConfirm=true"></i>
 				</div>
 			</div>
 		</transition>
@@ -109,15 +119,16 @@
 		</div>
 		<div v-if="showEditTypeConfirm">
 			<div class="model text-center">
-				<div class="modal-dialog modal-sm">
+				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
 							<h4 class="modal-title">确定删除该分类吗</h4>
 						</div>
-						<div class="modal-body">
-							<button type="button" class="btn btn-default" @click="showEditTypeConfirm=false">取消</button>
-							<button type="button" class="btn btn-primary" @click="deleteType">确定</button>
+						<div class="modal-body">							
+							<button type="button" class="btn btn-danger" @click="deleteTypePlan">删除该类及该类下的计划</button>
+							<button type="button" class="btn btn-primary" @click="deleteType">只删除该类，不删除该类下的计划</button>
+							<button type="button" class="btn btn-default" @click="showEditTypeConfirm=false">取消删除</button>
 						</div>
 					</div>
 				</div>
@@ -187,7 +198,6 @@
 					}
 				}
 			);
-			console.log("清单：当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 		},
 		methods: {
 			showAddTypeModal: function() {
@@ -202,6 +212,11 @@
 					this.msg = "请先登录"
 					return;
 				}
+				console.log(this.typeLists.length)
+				if(this.typeLists.length < 1){					
+					alert("暂无分类可以管理，请先新建分类")
+					return
+				}				
 				this.isShowEditType = true
 			},
 			//获取当前登录用户的清单列表
@@ -290,6 +305,7 @@
 				}
 			},
 			checkEmptyType: function(index) {
+				this.editTypeIndex=index
 				if(this.typeLists[index].trim() == "") {
 					this.showEditTypeConfirm = true
 				}
@@ -297,11 +313,20 @@
 			deleteList: function() {
 				this.showDeleteConfirm = false
 				this.isShowEdit = false
+				this.item.type = ""
 				this.item.plan = ""
 				this.getCurrItems()
+				this.isActive ? this.getTypeLists() : this.getOtherLists();
 			},
-			deleteType:function(index){
-				
+			deleteType:function(){
+				this.showEditTypeConfirm = false
+				this.isShowEditType = false
+				//删除一个type,分两种情况，1是原type下的plan不删除，放到未分类一组；2是该type下的plan也全部删除,此处为1
+			},
+			deleteTypePlan:function(){
+				this.showEditTypeConfirm = false
+				this.isShowEditType = false
+				//2.该type下的plan也全部删除
 			},
 			//切换清单的完成状况
 			toggleFinished: function(item) {
@@ -341,7 +366,7 @@
 					subtype: this.isActive ? "未分类" : this.currIndex,
 					isfinished: false
 				})
-				this.getCurrItems();
+				this.getCurrItems();	
 				this.getTypeLists();
 				this.isActive ? this.getTypeLists() : this.getOtherLists();
 				this.newItem = ""

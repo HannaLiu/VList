@@ -29,9 +29,8 @@ nav ul{float:right;font-size: 0;}
 .m_t_s{margin-top: 15px;}
 .m_b_m{margin-bottom: 30px;}
 .m_b_s{margin-bottom: 15px;}
-
+.float_l{float: left;}
 .thumbnail .list-img{height: 150px;overflow: hidden;margin-top: 15px;}
-
 .typeBtn button{min-height: 34px;}
 
 .plan_list{border: 1px solid #DDDDDD;border-radius: 4px;margin-top: 3px;padding:0 15px;height:46px;line-height:46px;font-size: 18px;cursor: pointer;}
@@ -64,7 +63,7 @@ nav ul{float:right;font-size: 0;}
   opacity: 0;
 }
 
-.labelforlist{margin-bottom: 0;width: 100%;height: 46px;position: relative;}
+.labelforlist{margin-bottom: 0;width: 100%;min-height: 46px;}
 .checkboxInput{vertical-align: top;}
 input[type=checkbox] {
 	width: 24px;
@@ -85,11 +84,11 @@ input[type=checkbox].nochecked{
 }
 
 .fixedEdit{width: 400px;height:100%;background:#FFFFFF;position: fixed;right: 0;top: 0;border-left: 1px solid #ddd;z-index: 999;padding: 15px;box-shadow: 0 0 15px rgba(0,0,0,0.3);}
-.fixedEdit .fa{font-size: 28px;font-weight: lighter;cursor: pointer;}
+.fixedEdit .fa{font-size: 28px;font-weight: lighter;cursor: pointer;vertical-align: text-top;}
 .fixedEdit .delete{float: right;}
 .editMain textarea.form-control:focus{border-color: #DDDDDD;box-shadow: none;}
 .editMain{border-bottom: 1px solid #DDDDDD;}
-.editText{line-height: 28px;font-size: 18px;padding: 0;border:none;margin-top: 9px;min-height:46px;height:100%;width:100%;max-width:100%;box-shadow: none;border-color: transparent;border-bottom: 1px solid #DDDDDD;}
+.editText{line-height: 28px;font-size: 18px;padding: 0;border:none;margin-top: 9px;min-height:46px;height:100%;width:100%;max-width:100%;box-shadow: none;border-color: transparent;border:none;text-align: justify;}
 .item_plan::selection {
     background-color: transparent ;
 }
@@ -100,4 +99,21 @@ input[type=checkbox].nochecked{
 
 .item_plan::-webkit-selection {
     background-color: transparent ;
+}
+
+.divtextarea{
+	width: 400px; 
+    min-height: 120px; 
+    max-height: 300px;
+    _height: 120px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    padding: 3px; 
+    outline: 0; 
+    border: 1px solid #a0b3d6; 
+    font-size: 12px; 
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    _overflow-y: visible;
 }

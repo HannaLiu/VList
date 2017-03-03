@@ -61,8 +61,6 @@
 					islogin: false
 				})
 				storeCurr.save(this.user)
-
-				console.log("当前是否已登录:" + (store.state.isLogin ? " 是 " : " 否 ") + " ,当前id为 " + store.state.cid)
 			}
 		}
 	}

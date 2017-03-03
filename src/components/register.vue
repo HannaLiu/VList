@@ -76,7 +76,7 @@
 					this.msg = "请确认密码"
 					return;
 				}
-				if(this.newPwd !== this.$refs.checkPwd.value) {
+				if(this.newPwd != this.$refs.checkPwd.value) {
 					this.msg = "两次密码不一致"
 					return;
 				}
@@ -86,12 +86,11 @@
 					name: this.newName,
 					pwd: md5(this.newPwd),
 				})				
-				this.isRegister = true;		//修改注册状态为成功，出发跳转到login事件
+				this.isRegister = true;		//修改注册状态为成功，触发跳转到login事件
 				alert("注册成功")
 				this.newName = ""
 				this.newPwd = ""
 				this.$refs.checkPwd.value = ""
-
 			},
 			clearMsg: function() {
 				this.msg = ""
