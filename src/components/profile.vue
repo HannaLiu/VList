@@ -25,7 +25,8 @@
 		      <input type="password" class="form-control" id="inputPassword" placeholder="确认密码">
 		    </div>
 		  </div>
-		  <div class="text-center m_t_m"><button type="submit" class="btn btn-success" @click="modify">保存</button></div>
+		  <span>{{msg}}</span>
+		  <div class="text-center m_t_m"><button class="btn btn-success" @click="modify">保存</button></div>
 		</form>
 	</div>
 </template>
@@ -41,7 +42,8 @@
 				users: storeuser.fetch(),
 				name:store.state.cname,
 				tel:storeuser.tel,
-				email:storeuser.email
+				email:storeuser.email,
+				msg:""
 			};
 		},
 		watch: {
@@ -57,7 +59,9 @@
 		},
 		methods: {			
 			modify:function(){
-				
+				if(this.tel.trim()=="" && this.email.trim()==""){
+					this.msg="您没有修改"
+				}
 			}
 		}
 		
