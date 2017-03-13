@@ -6,7 +6,7 @@
 				<button type="button" class="btn btn-default" @click="showAllLists" v-bind:class="{'btn-success':isActive}">全部</button>
 				<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" v-bind:class="{'btn-success':isIndex==index?true:false}" @click="showCurrList(index)">{{typeList}}</button>
 				<button type="button" class="btn btn-default" @click="showAddTypeModal"><i class="fa fa-plus"></button>
-				<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>
+				<!--<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>-->
 			</div>
 			<span class="message">{{msg}}</span>
 		</div>
@@ -75,7 +75,7 @@
 					<label class="checkboxInput float_l">
 						<input type="checkbox" :class="{'nochecked':item.isfinished}" v-model="item.isfinished"/>
 					</label>
-					<div class="col-xs-10">
+					<div class="col-xs-11">
 						<!--此处用div模拟textarea-->
 						<!--<div class="divtextarea"  contenteditable="true">
 							{{item.plan}}

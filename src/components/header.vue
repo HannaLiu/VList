@@ -9,7 +9,8 @@
 				</div>
 				<div class="nav-login" v-else>
 					<div class="user-name">
-						<router-link to="/profile">{{cname}}</router-link>
+						{{cname}}
+						<!--<router-link to="/profile">{{cname}}</router-link>-->
 					</div>
 					<button class="btn btn-warning" href="#" role="button" @click="signout">退出</button>
 				</div>
