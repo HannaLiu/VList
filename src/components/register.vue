@@ -88,9 +88,6 @@
 				})				
 				this.isRegister = true;		//修改注册状态为成功，触发跳转到login事件
 				alert("注册成功")
-				this.newName = ""
-				this.newPwd = ""
-				this.$refs.checkPwd.value = ""
 			},
 			clearMsg: function() {
 				this.msg = ""

@@ -70,8 +70,6 @@
 					alert("登录成功")
 					window.location.href = "./"
 				}
-				this.name = "";
-				this.pwd = "";
 			},
 			clearMsg: function() {
 				this.msg = ""
