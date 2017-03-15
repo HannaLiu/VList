@@ -3,6 +3,7 @@
 		<div class="form">
 			<div class="form-group">
 				<label>请输入您的用户名</label>
+				<!--<p class="mark">字母、数字、下划线组成，字母开头，4-16位</p>-->
 				<input type="text" class="form-control" placeholder="请输入您的用户名" v-model="newName" v-on:focus="clearMsg" @keyup.13="addUser">
 			</div>
 			<div class="form-group">
