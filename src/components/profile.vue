@@ -71,17 +71,17 @@
 		},
 		methods: {
 			resetprofile: function() {
-				if(this.tel.trim() == "" && this.email.trim() == "") {
+				var exist = findel.findElem(this.users, "name", this.name);
+				var existpwd = findel.findElem(this.users, "pwd", md5(this.pwd));
+				if(this.tel.trim() == this.users[exist].tel && this.email.trim() == this.users[exist].email) {
 					this.msg = "您没有修改"
 					return
 				}
-				if(this.tel.trim() != "" || this.email.trim() != "") {
+				if(this.tel.trim() != this.users[exist].tel || this.email.trim() != this.users[exist].email) {
 					if(this.pwd.trim() == "") {
 						this.msg = "请确认密码"
 						return
-					}
-					var exist = findel.findElem(this.users, "name", this.name);
-					var existpwd = findel.findElem(this.users, "pwd", md5(this.pwd));
+					}					
 					if(this.users[exist]["pwd"] != md5(this.pwd)) {
 						this.msg = "密码错误"
 						return;
