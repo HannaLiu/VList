@@ -1,7 +1,10 @@
 <template>
 	<header>
 		<nav class="container header">
-			<h1 class="logo"><img src="../assets/img/logo.png" /></h1>
+			<h1 class="logo">
+				<!--<img src="../assets/img/logo.png" />-->
+				<p class="logo_txt">TODOList</p>
+			</h1>
 			<div class="nav-person">
 				<div class="nav-login" v-if="!isLogin">
 					<button class="btn btn-success" href="#" role="button"><router-link to="/register">注册</router-link></button>

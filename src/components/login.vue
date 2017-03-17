@@ -1,16 +1,20 @@
 <template>
-	<div id="login" class="row">
-		<div class="form">
-			<div class="form-group">
-				<label>请输入您的用户名</label>
-				<input type="text" class="form-control" placeholder="请输入您的用户名" v-model="name" v-on:focus="clearMsg" @keyup.13="login">
+	<div id="login" class="container">
+		<div class="form_main">
+			<div class="form">
+				<p class="tit_form">登　录</p>
+				<div class="form-group">
+					<label>昵　　称:</label>
+					<input type="text" class="form-control" placeholder="请输入您的用户名" v-model="name" v-on:focus="clearMsg" @keyup.13="login">
+				</div>
+				<div class="form-group">
+					<label>密　　码:</label>
+					<input type="password" class="form-control" placeholder="请输入您的密码" v-model="pwd" v-on:focus="clearMsg" @keyup.13="login">
+				</div>
+				<p class="message">{{msg}}</p>
+				<p class="tit_form"></p>
+				<div class="text-center"><button type="submit" class="btn btn-success" @click="login">登录</button></div>
 			</div>
-			<div class="form-group">
-				<label>请输入您的密码</label>
-				<input type="password" class="form-control" placeholder="请输入您的密码" v-model="pwd" v-on:focus="clearMsg" @keyup.13="login">
-			</div>
-			<p class="message">{{msg}}</p>
-			<div class="text-center"><button type="submit" class="btn btn-success" @click="login">登录</button></div>
 		</div>
 	</div>
 </template>

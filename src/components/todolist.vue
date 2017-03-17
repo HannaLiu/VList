@@ -1,134 +1,136 @@
 <template>
 
 	<div id="todolist" class="container">
-		<div>
-			<div class="btn-group m_t_m typeBtn" role="group">
-				<button type="button" class="btn btn-default" @click="showAllLists" v-bind:class="{'btn-success':isActive}">全部</button>
-				<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" v-bind:class="{'btn-success':isIndex==index?true:false}" @click="showCurrList(index)">{{typeList}}</button>
-				<button type="button" class="btn btn-default" @click="showAddTypeModal"><i class="fa fa-plus"></button>
-				<!--<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>-->
+		<div class="form_main">
+			<div>
+				<div class="btn-group m_t_m typeBtn" role="group">
+					<button type="button" class="btn btn-default" @click="showAllLists" v-bind:class="{'btn-success':isActive}">全部</button>
+					<button type="button" class="btn btn-default" v-for="(typeList,index) in typeLists" v-bind:class="{'btn-success':isIndex==index?true:false}" @click="showCurrList(index)">{{typeList}}</button>
+					<button type="button" class="btn btn-default" @click="showAddTypeModal"><i class="fa fa-plus"></button>
+					<!--<button type="button" class="btn btn-default" @click="manageList"><i class="fa fa-gear"></button>-->
+				</div>
+				<span class="message">{{msg}}</span>
 			</div>
-			<span class="message">{{msg}}</span>
-		</div>
-		<div v-if="showInListType">
-			<div class="model">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
-							<h4 class="modal-title">为新增的分类取个名字</h4>
-						</div>
-						<div class="modal-body">
-							<input type="text" class="form-control" placeholder="请输入分类的名称" v-model="newType" @keyup.13="addNewType">
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" @click="showInListType=false">取消</button>
-							<button type="button" class="btn btn-primary" @click="addNewType">确定</button>
+			<div v-if="showInListType">
+				<div class="model">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
+								<h4 class="modal-title">为新增的分类取个名字</h4>
+							</div>
+							<div class="modal-body">
+								<input type="text" class="form-control" placeholder="请输入分类的名称" v-model="newType" @keyup.13="addNewType">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" @click="showInListType=false">取消</button>
+								<button type="button" class="btn btn-primary" @click="addNewType">确定</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div>
 			<div>
-				<div class="input-group m_t_s m_b_s">
-					<span class="input-group-btn">
+				<div>
+					<div class="input-group m_t_s m_b_s">
+						<span class="input-group-btn">
     					<button class="btn btn-default btn-lg" type="button" @click="addItem">+</button>
   					</span>
-					<input type="text" class="form-control input-lg" placeholder="添加计划..." v-model="newItem" @keyup.13="addItem" @focus="checkLogin" @blur="clearMsg">
+						<input type="text" class="form-control input-lg" placeholder="添加计划..." v-model="newItem" @keyup.13="addItem" @focus="checkLogin" @blur="clearMsg">
+					</div>
 				</div>
-			</div>
-			<div class="task-list">
-				<ul>
-					<li v-for="(item,index) in items" class="plan_list" :class="[{finished:item.isfinished},{'active':selectedIndex==index?true:false}]" v-if="!item.isfinished" @dblclick="showEdit(item)">
-						<div class="labelforlist">
-							<label class="checkboxInput"><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/></label>
-							<span class="item_plan" @click="addActive(index)">{{item.plan}}</span>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<div class="task-list">
-				<button class="btn btn-success m_t_s" @click="toggleFinishedList" v-if="!showFinishedList">收起已完成任务</button>
-				<button class="btn btn-success m_t_s" @click="toggleFinishedList" v-else>显示已完成任务</button>
-				<transition name="fade" v-if="!showFinishedList">
+				<div class="task-list">
 					<ul>
-						<li>
-							<h5 v-if="showDefault()">暂无完成任务</h5>
-							<h5 v-else>以下为完成任务</h5>
-						</li>
-						<li v-for="(item,index) in items" class="plan_list plan_list_done" :class="[{finished:item.isfinished},{'active':selectedIndex==index?true:false}]" v-if="item.isfinished" @dblclick="showEdit(item)">
+						<li v-for="(item,index) in items" class="plan_list" :class="[{finished:item.isfinished},{'active':selectedIndex==index?true:false}]" v-if="!item.isfinished" @dblclick="showEdit(item)">
 							<div class="labelforlist">
-								<label class="checkboxInput"><input type="checkbox" class="nochecked" @click="toggleFinished" v-model="item.isfinished"/></label>
-								<span class="item_plan line-through" @click="addActive(index)">{{item.plan}}</span>
+								<label class="checkboxInput"><input type="checkbox" @click="toggleFinished" v-model="item.isfinished"/></label>
+								<span class="item_plan" @click="addActive(index)">{{item.plan}}</span>
 							</div>
 						</li>
 					</ul>
-				</transition>
+				</div>
+				<div class="task-list">
+					<button class="btn btn-success m_t_s" @click="toggleFinishedList" v-if="!showFinishedList">收起已完成任务</button>
+					<button class="btn btn-success m_t_s" @click="toggleFinishedList" v-else>显示已完成任务</button>
+					<transition name="fade" v-if="!showFinishedList">
+						<ul>
+							<li>
+								<h5 v-if="showDefault()">暂无完成任务</h5>
+								<h5 v-else>以下为完成任务</h5>
+							</li>
+							<li v-for="(item,index) in items" class="plan_list plan_list_done" :class="[{finished:item.isfinished},{'active':selectedIndex==index?true:false}]" v-if="item.isfinished" @dblclick="showEdit(item)">
+								<div class="labelforlist">
+									<label class="checkboxInput"><input type="checkbox" class="nochecked" @click="toggleFinished" v-model="item.isfinished"/></label>
+									<span class="item_plan line-through" @click="addActive(index)">{{item.plan}}</span>
+								</div>
+							</li>
+						</ul>
+					</transition>
+				</div>
 			</div>
-		</div>
-		<transition name="slide-fade">
-			<div class="fixedEdit" v-if="isShowEdit">
-				<i class="fa fa-angle-double-right arrow" @click="hideEdit"></i>
-				<i class="fa fa-trash delete" @click="showDeleteConfirm=true"></i>
-				<div class="labelforlist m_t_m editMain clearfix">
-					<label class="checkboxInput float_l">
+			<transition name="slide-fade">
+				<div class="fixedEdit" v-if="isShowEdit">
+					<i class="fa fa-angle-double-right arrow" @click="hideEdit"></i>
+					<i class="fa fa-trash delete" @click="showDeleteConfirm=true"></i>
+					<div class="labelforlist m_t_m editMain clearfix">
+						<label class="checkboxInput float_l">
 						<input type="checkbox" :class="{'nochecked':item.isfinished}" v-model="item.isfinished"/>
 					</label>
-					<div class="col-xs-11">
-						<!--此处用div模拟textarea-->
-						<!--<div class="divtextarea"  contenteditable="true">
+						<div class="col-xs-11">
+							<!--此处用div模拟textarea-->
+							<!--<div class="divtextarea"  contenteditable="true">
 							{{item.plan}}
 						</div>-->
-						<textarea tabindex="0" class="form-control editText" v-model="item.plan" @blur="checkEmpty()"></textarea>
-					</div>
-					<!--此处修改当前清单的type-->
-					<!--<p>分类：{{item.subtype}}</p>
+							<textarea tabindex="0" class="form-control editText" v-model="item.plan" @blur="checkEmpty()"></textarea>
+						</div>
+						<!--此处修改当前清单的type-->
+						<!--<p>分类：{{item.subtype}}</p>
 					<select>
 					  <option v-for="(type,index) in typeLists">{{typeLists[index]}}</option>
 					</select>-->
-				</div>
-			</div>
-		</transition>
-		<transition name="slide-fade">
-			<div class="fixedEdit" v-if="isShowEditType">
-				<i class="fa fa-angle-double-right arrow" @click="hideEditType"></i>
-				<div class="m_t_s" v-for="(type,index) in typeLists">
-					<div class="col-xs-11">
-						<input type="text" class="form-control" v-model="typeLists[index]" @blur="checkEmptyType(index)" />
-					</div>
-					<i class="fa fa-trash" @click="showEditTypeConfirm=true"></i>
-				</div>
-			</div>
-		</transition>
-		<div v-if="showDeleteConfirm">
-			<div class="model text-center">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
-							<h4 class="modal-title">确定删除吗</h4>
-						</div>
-						<div class="modal-body">
-							<button type="button" class="btn btn-default" @click="showDeleteConfirm=false">取消</button>
-							<button type="button" class="btn btn-primary" @click="deleteList">确定</button>
-						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div v-if="showEditTypeConfirm">
-			<div class="model text-center">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
-							<h4 class="modal-title">确定删除该分类吗</h4>
+			</transition>
+			<transition name="slide-fade">
+				<div class="fixedEdit" v-if="isShowEditType">
+					<i class="fa fa-angle-double-right arrow" @click="hideEditType"></i>
+					<div class="m_t_s" v-for="(type,index) in typeLists">
+						<div class="col-xs-11">
+							<input type="text" class="form-control" v-model="typeLists[index]" @blur="checkEmptyType(index)" />
 						</div>
-						<div class="modal-body">							
-							<button type="button" class="btn btn-danger" @click="deleteTypePlan">删除该类及该类下的计划</button>
-							<button type="button" class="btn btn-primary" @click="deleteType">只删除该类，不删除该类下的计划</button>
-							<button type="button" class="btn btn-default" @click="showEditTypeConfirm=false">取消删除</button>
+						<i class="fa fa-trash" @click="showEditTypeConfirm=true"></i>
+					</div>
+				</div>
+			</transition>
+			<div v-if="showDeleteConfirm">
+				<div class="model text-center">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
+								<h4 class="modal-title">确定删除吗</h4>
+							</div>
+							<div class="modal-body">
+								<button type="button" class="btn btn-default" @click="showDeleteConfirm=false">取消</button>
+								<button type="button" class="btn btn-primary" @click="deleteList">确定</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="showEditTypeConfirm">
+				<div class="model text-center">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" @click="showInListType=false">&times;</span></button>
+								<h4 class="modal-title">确定删除该分类吗</h4>
+							</div>
+							<div class="modal-body">
+								<button type="button" class="btn btn-danger" @click="deleteTypePlan">删除该类及该类下的计划</button>
+								<button type="button" class="btn btn-primary" @click="deleteType">只删除该类，不删除该类下的计划</button>
+								<button type="button" class="btn btn-default" @click="showEditTypeConfirm=false">取消删除</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -213,10 +215,10 @@
 					return;
 				}
 				console.log(this.typeLists.length)
-				if(this.typeLists.length < 1){					
+				if(this.typeLists.length < 1) {
 					alert("暂无分类可以管理，请先新建分类")
 					return
-				}				
+				}
 				this.isShowEditType = true
 			},
 			//获取当前登录用户的清单列表
@@ -305,7 +307,7 @@
 				}
 			},
 			checkEmptyType: function(index) {
-				this.editTypeIndex=index
+				this.editTypeIndex = index
 				if(this.typeLists[index].trim() == "") {
 					this.showEditTypeConfirm = true
 				}
@@ -318,12 +320,12 @@
 				this.getCurrItems()
 				this.isActive ? this.getTypeLists() : this.getOtherLists();
 			},
-			deleteType:function(){
+			deleteType: function() {
 				this.showEditTypeConfirm = false
 				this.isShowEditType = false
 				//删除一个type,分两种情况，1是原type下的plan不删除，放到未分类一组；2是该type下的plan也全部删除,此处为1
 			},
-			deleteTypePlan:function(){
+			deleteTypePlan: function() {
 				this.showEditTypeConfirm = false
 				this.isShowEditType = false
 				//2.该type下的plan也全部删除
@@ -366,7 +368,7 @@
 					subtype: this.isActive ? "未分类" : this.currIndex,
 					isfinished: false
 				})
-				this.getCurrItems();	
+				this.getCurrItems();
 				this.getTypeLists();
 				this.isActive ? this.getTypeLists() : this.getOtherLists();
 				this.newItem = ""

@@ -11,5 +11,6 @@ export default {
 </script>
 
 <style scoped>
-.footer{text-align: center;font-size: 12px;color: #666666;margin-top: 100px;}
+.footer{text-align: center;font-size: 12px;color: #FFFFFF;background: url(../assets/img/footer-bg.jpg) no-repeat;height: 50px;position: fixed;bottom: 0;left: 0;width: 100%;}
+.footer p{line-height: 50px; margin: 0;}
 </style>

@@ -1,21 +1,25 @@
 ﻿<template>
-	<div id="register">
-		<div class="form">
-			<div class="form-group">
-				<label>请输入您的用户名</label>
-				<!--<p class="mark">字母、数字、下划线组成，字母开头，4-16位</p>-->
-				<input type="text" class="form-control" placeholder="请输入您的用户名" v-model="newName" v-on:focus="clearMsg" @keyup.13="addUser">
+	<div id="register" class="container">		
+		<div class="form_main">			
+			<div class="form">
+				<p class="tit_form">注　册</p>
+				<div class="form-group">
+					<label>昵　　称:</label>
+					<!--<p class="mark">字母、数字、下划线组成，字母开头，4-16位</p>-->
+					<input type="text" class="form-control" placeholder="请输入您的用户名" v-model="newName" v-on:focus="clearMsg" @keyup.13="addUser">
+				</div>
+				<div class="form-group">
+					<label>密　　码:</label>
+					<input type="password" class="form-control" placeholder="请输入您的密码" v-model="newPwd" v-on:focus="clearMsg" @keyup.13="addUser">
+				</div>
+				<div class="form-group">
+					<label>确认密码</label>
+					<input type="password" class="form-control" placeholder="请确认您的密码" ref="checkPwd" v-on:focus="clearMsg" @keyup.13="addUser">
+				</div>
+				<p class="message" ref="msg">{{msg}}</p>
+				<p class="tit_form"></p>
+				<div class="text-center"><button type="submit" class="btn btn-success" @click="addUser">注册</button></div>
 			</div>
-			<div class="form-group">
-				<label>请输入您的密码</label>
-				<input type="password" class="form-control" placeholder="请输入您的密码" v-model="newPwd" v-on:focus="clearMsg" @keyup.13="addUser">
-			</div>
-			<div class="form-group">
-				<label>请确认您的密码</label>
-				<input type="password" class="form-control" placeholder="请确认您的密码" ref="checkPwd" v-on:focus="clearMsg" @keyup.13="addUser">
-			</div>
-			<p class="message" ref="msg">{{msg}}</p>
-			<div class="text-center"><button type="submit" class="btn btn-success" @click="addUser">注册</button></div>
 		</div>
 	</div>
 </template>
@@ -86,8 +90,8 @@
 					id: this.id,
 					name: this.newName,
 					pwd: md5(this.newPwd),
-				})				
-				this.isRegister = true;		//修改注册状态为成功，触发跳转到login事件
+				})
+				this.isRegister = true; //修改注册状态为成功，触发跳转到login事件
 				alert("注册成功")
 			},
 			clearMsg: function() {

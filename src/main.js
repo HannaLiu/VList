@@ -13,6 +13,7 @@ import register from './components/register.vue'
 import profile from './components/profile.vue'
 import todolist from './components/todolist.vue'
 import manage from './components/manage.vue'
+import welcome from './components/welcome.vue'
 
 const router = new VueRouter({
 	mode: 'history',

@@ -1,38 +1,40 @@
 ﻿<template>
-	<div id="profile" class="clearfix">
-		<div class="form-horizontal m_t_m col-sm-8 col-sm-push-2 ">
-			<div class="form-group">
-				<label class="col-sm-2 control-label">ID：</label>
-				<div class="col-sm-10">
-					<p class="form-control-static">{{id}}</p>
+	<div id="profile" class="container">
+		<div class="form_main">
+			<div class="form-horizontal m_t_m col-sm-8 col-sm-push-2 ">
+				<div class="form-group">
+					<label class="control-label">ID：</label>
+					<div class="info_detail">
+						<p class="form-control-static">{{id}}</p>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">用户名：</label>
-				<div class="col-sm-10">
-					<p class="form-control-static">{{name}}</p>
+				<div class="form-group">
+					<label class="control-label">用户名：</label>
+					<div class="info_detail">
+						<p class="form-control-static">{{name}}</p>
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">手机号：</label>
-				<div class="col-sm-10">
-					<input type="tel" class="form-control" id="inputTel" placeholder="电话号码" v-model="tel" v-on:focus="clearMsg">
+				<div class="form-group">
+					<label class="control-label">手机号：</label>
+					<div class="info_detail">
+						<input type="tel" class="form-control" id="inputTel" placeholder="电话号码" v-model="tel" v-on:focus="clearMsg">
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">邮　箱：</label>
-				<div class="col-sm-10">
-					<input type="email" class="form-control" id="inputEmail" placeholder="邮箱" v-model="email" v-on:focus="clearMsg">
+				<div class="form-group">
+					<label class="control-label">邮　箱：</label>
+					<div class="info_detail">
+						<input type="email" class="form-control" id="inputEmail" placeholder="邮箱" v-model="email" v-on:focus="clearMsg">
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="inputPassword" class="col-sm-2 control-label">密　码：</label>
-				<div class="col-sm-10">
-					<input type="password" class="form-control" id="inputPassword" placeholder="确认密码" v-model="pwd" v-on:focus="clearMsg">
+				<div class="form-group">
+					<label class="control-label">密　码：</label>
+					<div class="info_detail">
+						<input type="password" class="form-control" id="inputPassword" placeholder="确认密码" v-model="pwd" v-on:focus="clearMsg">
+					</div>
 				</div>
+				<p class="text-center message">{{msg}}</p>
+				<div class="text-center m_t_m"><button class="btn btn-success" @click="resetprofile">保存</button></div>
 			</div>
-			<p class="text-center message">{{msg}}</p>
-			<div class="text-center m_t_m"><button class="btn btn-success" @click="resetprofile">保存</button></div>
 		</div>
 	</div>
 </template>
@@ -51,7 +53,7 @@
 				id: store.state.cid,
 				name: store.state.cname,
 				tel: "",
-				email: "",				
+				email: "",
 				pwd: "",
 				msg: ""
 			};
@@ -66,8 +68,8 @@
 		},
 		mounted: function() {
 			var exist = findel.findElem(this.users, "name", this.name);
-			this.tel=this.users[exist].tel||""
-			this.email=this.users[exist].email||""		
+			this.tel = this.users[exist].tel || ""
+			this.email = this.users[exist].email || ""
 		},
 		methods: {
 			resetprofile: function() {
@@ -81,14 +83,14 @@
 					if(this.pwd.trim() == "") {
 						this.msg = "请确认密码"
 						return
-					}					
+					}
 					if(this.users[exist]["pwd"] != md5(this.pwd)) {
 						this.msg = "密码错误"
 						return;
 					}
-					if(this.users[exist]["pwd"] == md5(this.pwd)) {					
-						this.users[exist].tel=this.tel,
-						this.users[exist].email=this.email
+					if(this.users[exist]["pwd"] == md5(this.pwd)) {
+						this.users[exist].tel = this.tel,
+							this.users[exist].email = this.email
 						storeuser.save(this.users)
 						alert("修改成功")
 						window.location.href = "./"

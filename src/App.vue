@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
 		<vheader></vheader>	
+		<welcome></welcome>
 		<router-view></router-view>
 		<vfooter></vfooter>
 	</div>
@@ -9,6 +10,7 @@
 <script>
 	import vheader from './components/header'	
 	import vfooter from './components/footer'	
+	import welcome from './components/welcome'	
 	
 	import store from './store/store-global'
 	import storeCurr from './data/storeusercurr'
@@ -16,7 +18,7 @@
 	export default {
 		name: 'app',
 		components: {
-			vheader,vfooter
+			vheader,vfooter,welcome
 		},		
 		data() {
 			return {
@@ -31,5 +33,5 @@
 <style>
 	@import 'assets/css/font-awesome/font-awesome.min.css';
 	@import 'assets/css/bootstrap.min.css';
-	@import "assets/css/main.css";
+	@import "assets/css/main.css";	
 </style>
