@@ -24,7 +24,7 @@
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" @click="showInListType=false">取消</button>
-								<button type="button" class="btn btn-primary" @click="addNewType">确定</button>
+								<button type="button" class="btn btn-success" @click="addNewType">确定</button>
 							</div>
 						</div>
 					</div>

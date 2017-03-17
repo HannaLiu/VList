@@ -70,5 +70,5 @@
 </script>
 
 <style scoped>
-	.nav-menu .router-link-active{border-bottom: 5px solid #41B883;}
+	.nav-menu .router-link-active{border-bottom: 5px solid #4CAE4C;}
 </style>
