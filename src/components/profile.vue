@@ -4,16 +4,17 @@
 			<div class="m_t_m col-sm-8 col-sm-push-2 grout_list">
 				<div class="">
 					<p class="tit_form">个人信息</p>
-					<div class="form-group">
+					<!--<div class="form-group">
 						<label>ID：</label>
 						<div class="info_detail">
 							<p class="form-control-static">{{id}}</p>
 						</div>
-					</div>
+					</div>-->
 					<div class="form-group">
 						<label class="control-label">用户名：</label>
 						<div class="info_detail">
 							<p class="form-control-static">{{name}}</p>
+							<!--<input type="tel" class="form-control" id="inputName" placeholder="用户名" v-model="name" v-on:focus="clearMsg">-->
 						</div>
 					</div>
 					<div class="form-group">
@@ -79,6 +80,10 @@
 			resetprofile: function() {
 				var exist = findel.findElem(this.users, "name", this.name);
 				var existpwd = findel.findElem(this.users, "pwd", md5(this.pwd));
+				
+				this.users[exist].tel = this.users[exist].tel || "";
+				this.users[exist].email = this.users[exist].email || "";
+				
 				if(this.tel.trim() == this.users[exist].tel && this.email.trim() == this.users[exist].email) {
 					this.msg = "您没有修改"
 					return

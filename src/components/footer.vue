@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    	<p>Copyright © 2017 VList.</p>
+    	<p>Copyright © 2017 HannaLiu.</p>
   </div>
 </template>
 
